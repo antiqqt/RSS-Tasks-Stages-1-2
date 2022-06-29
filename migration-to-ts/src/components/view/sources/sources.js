@@ -1,4 +1,4 @@
-import './sources.css';
+import './sources.scss';
 
 class Sources {
     draw(data) {

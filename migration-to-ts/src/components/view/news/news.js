@@ -1,4 +1,4 @@
-import './news.css';
+import './news.scss';
 
 class News {
     draw(data) {
