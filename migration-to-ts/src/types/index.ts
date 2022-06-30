@@ -22,7 +22,7 @@ export interface SourcesResponse {
     sources: Source[];
 }
 
-interface Source {
+export interface Source {
     id: string;
     name: string;
     description: string;
