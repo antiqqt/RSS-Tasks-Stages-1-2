@@ -1,4 +1,4 @@
-import { HTTPMethod, RequestOptions } from '../../types';
+import { HTTPMethod, RequestOptions, ServerResponse } from '../../types';
 
 class Loader {
     private baseLink: string;
@@ -39,11 +39,16 @@ class Loader {
         return url.slice(0, -1);
     }
 
-    load(method: HTTPMethod, endpoint: string, callback: (data?: string) => void, options: RequestOptions = {}) {
+    load(
+        method: HTTPMethod,
+        endpoint: string,
+        callback: (data?: ServerResponse) => void,
+        options: RequestOptions = {}
+    ) {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())
-            .then((data) => callback(data))
+            .then((data: ServerResponse) => callback(data))
             .catch((err) => console.error(err));
     }
 }

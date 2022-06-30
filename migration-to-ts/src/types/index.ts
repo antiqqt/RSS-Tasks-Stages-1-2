@@ -17,7 +17,7 @@ interface SourcesOptions {
     country?: string;
 }
 
-interface SourcesResponse {
+export interface SourcesResponse {
     status: 'ok' | 'error';
     sources: Source[];
 }
@@ -47,7 +47,7 @@ interface EverythingOptions {
     page?: number;
 }
 
-interface EverythingResponse {
+export interface EverythingResponse {
     status: string;
     totalResults: number;
     articles: Article[];
