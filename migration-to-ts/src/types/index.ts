@@ -53,7 +53,7 @@ export interface EverythingResponse {
     articles: Article[];
 }
 
-interface Article {
+export interface Article {
     source: {
         id: string;
         name: string;
