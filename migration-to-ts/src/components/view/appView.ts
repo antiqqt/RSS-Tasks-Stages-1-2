@@ -1,4 +1,4 @@
-import { EverythingResponse, SourcesResponse } from '../../types';
+import { Article, Source, ServerResponse } from '../../types';
 import News from './news/news';
 import Sources from './sources/sources';
 
@@ -11,13 +11,23 @@ export class AppView {
         this.sources = new Sources();
     }
 
-    drawNews(data?: EverythingResponse): void {
-        const values = data?.articles ? data?.articles : [];
+    drawNews(data: ServerResponse): void {
+        let values: Article[] = [];
+
+        if ('articles' in data) {
+            values = data.articles;
+        }
+
         this.news.draw(values);
     }
 
-    drawSources(data?: SourcesResponse): void {
-        const values = data?.sources ? data?.sources : [];
+    drawSources(data: ServerResponse): void {
+        let values: Source[] = [];
+
+        if ('sources' in data) {
+            values = data.sources;
+        }
+
         this.sources.draw(values);
     }
 }

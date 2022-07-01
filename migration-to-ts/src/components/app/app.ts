@@ -1,4 +1,3 @@
-import { EverythingResponse, SourcesResponse } from '../../types';
 import AppController from '../controller/controller';
 import { AppView } from '../view/appView';
 
@@ -15,10 +14,10 @@ class App {
         const sourcesContainer = document.querySelector('.sources') as HTMLDivElement;
 
         sourcesContainer.addEventListener('click', (e) =>
-            this.controller.getNews(e, (data) => this.view.drawNews(data as EverythingResponse))
+            this.controller.getNews(e, (data) => this.view.drawNews(data))
         );
 
-        this.controller.getSources((data) => this.view.drawSources(data as SourcesResponse));
+        this.controller.getSources((data) => this.view.drawSources(data));
     }
 }
 
