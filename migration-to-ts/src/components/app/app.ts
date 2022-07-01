@@ -11,11 +11,13 @@ class App {
     }
 
     start(): void {
-        const sourcesContainer = document.querySelector('.sources') as HTMLDivElement;
+        const sourcesContainer = document.querySelector<HTMLDivElement>('.sources');
 
-        sourcesContainer.addEventListener('click', (e) =>
-            this.controller.getNews(e, (data) => this.view.drawNews(data))
-        );
+        if (sourcesContainer !== null) {
+            sourcesContainer.addEventListener('click', (e) =>
+                this.controller.getNews(e, (data) => this.view.drawNews(data))
+            );
+        }
 
         this.controller.getSources((data) => this.view.drawSources(data));
     }
