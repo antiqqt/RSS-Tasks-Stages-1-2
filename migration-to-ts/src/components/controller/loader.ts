@@ -11,14 +11,14 @@ class Loader {
 
     getResp(
         { endpoint, options = {} }: { endpoint: string; options?: RequestOptions },
-        callback = () => {
+        callback: { (): void } = (): void => {
             console.error('No callback for GET response');
         }
-    ) {
+    ): void {
         this.load(HTTPMethod.GET, endpoint, callback, options);
     }
 
-    errorHandler(res: Response) {
+    errorHandler(res: Response): Response {
         if (!res.ok) {
             if (res.status === 401 || res.status === 404)
                 console.log(`Sorry, but there is ${res.status} error: ${res.statusText}`);
@@ -28,7 +28,7 @@ class Loader {
         return res;
     }
 
-    makeUrl(options: RequestOptions, endpoint: string) {
+    makeUrl(options: RequestOptions, endpoint: string): string {
         const urlOptions: RequestOptions = { ...this.options, ...options };
         let url = `${this.baseLink}${endpoint}?`;
 
@@ -44,7 +44,7 @@ class Loader {
         endpoint: string,
         callback: (data?: ServerResponse) => void,
         options: RequestOptions = {}
-    ) {
+    ): void {
         fetch(this.makeUrl(options, endpoint), { method })
             .then(this.errorHandler)
             .then((res) => res.json())

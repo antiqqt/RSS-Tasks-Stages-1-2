@@ -11,7 +11,7 @@ class App {
         this.view = new AppView();
     }
 
-    start() {
+    start(): void {
         const sourcesContainer = document.querySelector('.sources') as HTMLDivElement;
 
         sourcesContainer.addEventListener('click', (e) =>
