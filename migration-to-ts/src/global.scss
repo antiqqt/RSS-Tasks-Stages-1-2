@@ -13,23 +13,45 @@ header h1 {
     font-weight: 800;
 }
 
-footer {
-    height: 100px;
+.footer {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
-}
-footer .copyright a {
-    color: #444;
-}
-footer .copyright a:hover {
-    color: #555;
-}
-footer .copyright:before {
-    content: '©';
+    justify-content: flex-start;
+    row-gap: 0.75rem;
+    height: auto;
+    padding-top: 2rem;
+
+    .footer__item {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+        text-align: center;
+
+        &--copyright:before {
+            content: '©';
+        }
+    }
+
+    .footer__link {
+        color: #444;
+    }
+
+    .footer__link:hover {
+        color: #555;
+    }
+
+    .footer__img {
+        width: 5rem;
+        height: auto;
+        background-color: #444;
+        border: 0.275rem solid #444;
+        border-radius: 0.15rem;
+        transition: 0.3s;
+    }
+
+    .footer__img:hover {
+        background-color: #555;
+        border-color: #555;
+    }
 }
