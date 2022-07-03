@@ -11,6 +11,8 @@ class App {
     }
 
     start(): void {
+        this.view.drawMenu();
+
         const sourcesContainer = document.querySelector<HTMLDivElement>('.sources');
 
         if (sourcesContainer !== null) {

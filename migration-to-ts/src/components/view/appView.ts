@@ -1,13 +1,16 @@
 import { ServerResponse } from '../../types';
 import News from './news/news';
 import Sources from './sources/sources';
+import Menu from './menu/menu';
 
 export class AppView {
     private news: News;
     private sources: Sources;
+    private menu: Menu;
 
     constructor() {
         this.news = new News();
+        this.menu = new Menu();
         this.sources = new Sources();
     }
 
@@ -23,6 +26,10 @@ export class AppView {
             const values = data.sources ? data.sources : [];
             this.sources.draw(values);
         }
+    }
+
+    drawMenu(): void {
+        this.menu.draw();
     }
 }
 
