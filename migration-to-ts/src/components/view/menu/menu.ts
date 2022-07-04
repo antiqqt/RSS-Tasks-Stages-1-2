@@ -9,7 +9,6 @@ export default class Menu {
         sourcesBtn.classList.add('menu__button');
         sourcesBtn.addEventListener('click', () => {
             menu.classList.toggle('menu--open');
-
             sourcesContainer.classList.toggle('sources--move');
 
             if (sourcesContainer.classList.contains('sources--show')) {
@@ -25,9 +24,10 @@ export default class Menu {
             const target = e.target as HTMLElement;
 
             if (target !== sourcesContainer) {
-                sourcesContainer.classList.toggle('sources--move');
-                sourcesContainer.classList.toggle('sources--show');
-                setTimeout(() => menu.classList.toggle('menu--open'), 300);
+                sourcesContainer.classList.remove('sources--move');
+                sourcesContainer.classList.remove('sources--show');
+                window.scrollTo(0, 0);
+                setTimeout(() => menu.classList.remove('menu--open'), 300);
             }
         });
 
