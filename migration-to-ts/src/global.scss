@@ -1,35 +1,88 @@
+html {
+    height: 100%;
+}
+
 body {
-    color: #fff;
-    background: #17181c;
-    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    margin: 0;
+    color: rgba(0, 0, 0, 0.7);
+    background-color: #f8f8f8;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+
+    width: fit-content;
+    min-width: 100%; /* because the content might only be a few words */
+    box-sizing: border-box; /* because 100% + padding > 100% */
+
+    // make width account for scrollbar
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 header {
-    padding: 10px 30px;
+    padding: 10px 30px 5px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
 }
 
 header h1 {
+    margin: 0;
+    color: rgb(26, 115, 232);
     font-size: 40px;
     font-weight: 800;
 }
 
-footer {
-    height: 100px;
+.main {
+    flex-grow: 1;
     display: flex;
+    column-gap: 10vw;
+    padding-top: 1rem;
+
+    @media (max-width: 500px) {
+        flex-direction: column;
+        row-gap: 10vw;
+    }
+}
+
+.footer {
+    display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-}
-footer .copyright {
-    font-size: 14px;
-    color: #333;
-    text-align: center;
-}
-footer .copyright a {
-    color: #444;
-}
-footer .copyright a:hover {
-    color: #555;
-}
-footer .copyright:before {
-    content: '©';
+    justify-content: flex-start;
+    row-gap: 0.75rem;
+    height: auto;
+    padding-top: 2rem;
+
+    .footer__item {
+        margin: 0;
+        font-size: 14px;
+        color: #333;
+        text-align: center;
+
+        &--copyright:before {
+            content: '©';
+        }
+    }
+
+    .footer__link {
+        color: #444;
+    }
+
+    .footer__link:hover {
+        color: #555;
+    }
+
+    .footer__img {
+        width: 5rem;
+        height: auto;
+        background-color: rgb(136, 136, 136);
+        border: 0.275rem solid rgb(136, 136, 136);
+        border-radius: 0.15rem;
+        transition: 0.3s;
+    }
+
+    .footer__img:hover {
+        background-color: rgb(175, 175, 175);
+        border-color: rgb(175, 175, 175);
+    }
 }

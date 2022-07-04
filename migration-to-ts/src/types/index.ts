@@ -10,6 +10,8 @@ export enum HTTPMethod {
     TRACE = 'TRACE',
 }
 
+export type ServerResponseHandler = (data: ServerResponse) => void;
+
 interface SourcesOptions {
     apiKey?: string;
     category?: string;
