@@ -7,7 +7,7 @@
         "imageLink": "./images/item-1",
         "quantity": "3",
         "releaseYear": "2022",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "We are kind of famous for this one. It makes butter look great on the table."
     },
     "item2": {
@@ -18,7 +18,7 @@
         "imageLink": "./images/item-2",
         "quantity": "7",
         "releaseYear": "2022",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "We are kind of famous for this one. It makes butter look great on the table."
     },
     "item3": {
@@ -29,7 +29,7 @@
         "imageLink": "./images/item-3",
         "quantity": "9",
         "releaseYear": "2022",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "We are kind of famous for this one. It makes butter look great on the table."
     },
     "item4": {
@@ -40,7 +40,7 @@
         "imageLink": "./images/item-4",
         "quantity": "4",
         "releaseYear": "2020",
-        "manufacturer": "okle",
+        "manufacturer": "Okle",
         "description": "Wearing a wooden lid and this new cup is perfect as a marmelade jar."
     },
     "item5": {
@@ -51,7 +51,7 @@
         "imageLink": "./images/item-5",
         "quantity": "2",
         "releaseYear": "2020",
-        "manufacturer": "okle",
+        "manufacturer": "Okle",
         "description": "We love this new size of cup. Nice to hold with two hands."
     },
     "item6": {
@@ -62,7 +62,7 @@
         "imageLink": "./images/item-6",
         "quantity": "8",
         "releaseYear": "2019",
-        "manufacturer": "okle",
+        "manufacturer": "Okle",
         "description": "We use this size of jar for coffee beans. What would you use it for?"
     },
     "item7": {
@@ -73,7 +73,7 @@
         "imageLink": "./images/item-7",
         "quantity": "10",
         "releaseYear": "2018",
-        "manufacturer": "lykke",
+        "manufacturer": "Lykke",
         "description": "We find it perfect for warm milk for the coffee."
     },
     "item8": {
@@ -84,7 +84,7 @@
         "imageLink": "./images/item-8",
         "quantity": "4",
         "releaseYear": "2018",
-        "manufacturer": "lykke",
+        "manufacturer": "Lykke",
         "description": "We serve warm milk for the coffee in this one."
     },
     "item9": {
@@ -95,7 +95,7 @@
         "imageLink": "./images/item-9",
         "quantity": "5",
         "releaseYear": "2017",
-        "manufacturer": "okle",
+        "manufacturer": "Okle",
         "description": "For your favorite flowers."
     },
     "item10": {
@@ -106,7 +106,7 @@
         "imageLink": "./images/item-10",
         "quantity": "2",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item11": {
@@ -117,7 +117,7 @@
         "imageLink": "./images/item-11",
         "quantity": "13",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item12": {
@@ -128,7 +128,7 @@
         "imageLink": "./images/item-12",
         "quantity": "9",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item13": {
@@ -139,7 +139,7 @@
         "imageLink": "./images/item-13",
         "quantity": "7",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item14": {
@@ -150,7 +150,7 @@
         "imageLink": "./images/item-14",
         "quantity": "5",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item15": {
@@ -161,7 +161,7 @@
         "imageLink": "./images/item-15",
         "quantity": "6",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item16": {
@@ -172,7 +172,7 @@
         "imageLink": "./images/item-16",
         "quantity": "1",
         "releaseYear": "2015",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
     },
     "item17": {
@@ -183,7 +183,7 @@
         "imageLink": "./images/item-17",
         "quantity": "2",
         "releaseYear": "2022",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "We are kind of famous for this one. It makes butter look great on the table."
     },
     "item18": {
@@ -194,7 +194,7 @@
         "imageLink": "./images/item-18",
         "quantity": "6",
         "releaseYear": "2022",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "We are kind of famous for this one. It makes butter look great on the table."
     },
     "item19": {
@@ -205,7 +205,7 @@
         "imageLink": "./images/item-19",
         "quantity": "12",
         "releaseYear": "2022",
-        "manufacturer": "helbak",
+        "manufacturer": "Helbak",
         "description": "We are kind of famous for this one. It makes butter look great on the table."
     },
     "item20": {
@@ -216,7 +216,7 @@
         "imageLink": "./images/item-20",
         "quantity": "5",
         "releaseYear": "2019",
-        "manufacturer": "okle",
+        "manufacturer": "Okle",
         "description": "Dark blue is our favorite colour at the moment. Which is your favorite colour?"
     }
 }

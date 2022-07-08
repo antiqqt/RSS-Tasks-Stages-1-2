@@ -6,5 +6,53 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Online store</title>
     </head>
-    <body class="bg-red-300"></body>
+    <body class="flex flex-col min-h-screen font-sans text-neutral-500 bg-white">
+        <header class="flex px-6 border-b-2 border-b-neutral-200">
+            <h1 class="flex items-center py-3 text-3xl font-medium">Online store</h1>
+        </header>
+        <main class="grow">
+            <figure class="mb-10">
+                <img src="images/banner.webp" alt="Our butter boxes" />
+            </figure>
+            <article class="flex gap-x-6 px-6">
+                <aside class="flex flex-col items-center min-w-[10rem]">
+                    <h3>Category</h3>
+                    <h3>Company</h3>
+                    <h3>Color</h3>
+                </aside>
+                <section class="grow grid grid-cols-3 gap-y-4">
+                    <div class="h-48 overflow-hidden">
+                        <figure
+                            class="h-96 hover:translate-y-[-50%] hover:bg-gray-300 transition-transform duration-500 cursor-pointer"
+                        >
+                            <div class="flex justify-center h-1/2">
+                                <img src="images/item-1.webp" alt="Box" />
+                            </div>
+
+                            <figcaption class="flex flex-col justify-evenly text-center h-1/2">
+                                <p>Butter box</p>
+                                <p>Blue</p>
+                                <p>Aks</p>
+                                <p>3</p>
+                                <p>2022</p>
+                                <p>Helbak</p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                </section>
+            </article>
+        </main>
+        <footer class="flex flex-col items-center gap-y-1 px-6 py-2 text-gray-500 text-base bg-neutral-100">
+            <h2>
+                Made by <a class="hover:text-blue-400 transition-colors" href="https://github.com/antiqqt">Antiqqt</a>
+            </h2>
+            <h2>2022</h2>
+            <a
+                href="https://rs.school/js/"
+                class="border-2 border-neutral-100 rounded-sm hover:text-blue-400 hover:bg-blue-400 hover:border-blue-400 transition-colors"
+            >
+                <img class="w-[4.5rem] aspect-auto" src="svg/rs-school-logo.svg" alt="RS School logo" />
+            </a>
+        </footer>
+    </body>
 </html>

@@ -20,6 +20,7 @@
         "@typescript-eslint/eslint-plugin": "^5.30.0",
         "@typescript-eslint/parser": "^5.30.0",
         "autoprefixer": "^10.4.7",
+        "copy-webpack-plugin": "^11.0.0",
         "css-loader": "^5.1.0",
         "cssnano": "^5.1.12",
         "eslint": "^7.32.0",
