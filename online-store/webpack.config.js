@@ -27,6 +27,7 @@ const baseConfig = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, './src/index.html'),
             filename: 'index.html',
+            favicon: './src/assets/svg/cart.svg',
         }),
         new EslintPlugin({ extensions: 'ts' }),
         new CopyPlugin({
