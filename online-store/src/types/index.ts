@@ -10,3 +10,9 @@ export interface CardData {
     id: string;
     inCart: boolean;
 }
+
+export type CardsData = Map<string, CardData>;
+
+export enum Errors {
+    InvalidID = 'Invalid item id',
+}

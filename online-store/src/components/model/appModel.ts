@@ -1,18 +1,14 @@
-import { CardData } from '../app/types';
-import CardsData from '../../assets/data/data.json';
+import { CardsData } from '../../types';
+import DB from '../../assets/data/data.json';
 
 export default class Model {
-    private state: CardData[] = [];
+    private state: CardsData;
 
     constructor() {
-        this.setDefaultState();
+        this.state = new Map(Object.entries(DB));
     }
 
-    public getCurrentState(): CardData[] {
+    public getCurrentState(): CardsData {
         return this.state;
-    }
-
-    private setDefaultState(): void {
-        this.state = Object.values(CardsData);
     }
 }

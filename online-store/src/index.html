@@ -6,24 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Online store</title>
     </head>
-    <body class="flex flex-col min-h-screen font-sans text-neutral-500 bg-white">
-        <header class="flex justify-between items-center px-6 border-b-2 border-b-neutral-200">
+    <body class="flex flex-col w-screen min-h-screen font-sans text-neutral-500 bg-white overflow-x-hidden">
+        <header id="header" class="flex justify-between items-center px-6 border-b-2 border-b-neutral-200">
             <h1 class="flex items-center py-3 text-3xl font-medium">Online store</h1>
-            <div class="flex flex-col items-center gap-x-2 w-20 h-full">
-                <svg xmlns="http://www.w3.org/2000/svg" width="21" height="19" viewBox="0 0 21 19">
-                    <g fill="#595859">
-                        <path d="M5 6L4 4l4-4 1.6 1.1L5 6zM16 6l1-2-4-4-2 1 5 5zM0 7l2 12h17l2-12H0z"></path>
-                    </g>
-                </svg>
-
-                <div class="w-4 text-center text-blue-400 font-semibold">0</div>
             </div>
         </header>
         <main class="grow">
             <figure class="mb-10">
                 <img class="w-full max-h-80 object-cover" src="images/banner.webp" alt="Our butter boxes" />
             </figure>
-            <article class="flex gap-x-6 px-6">
+            <article class="flex gap-x-6 px-6" id="mainContent">
                 <aside class="sticky top-4 self-start flex flex-col gap-y-5 min-w-[10rem]" id="formsContainer">
                     <div>
                         <h3 class="mb-4 font-medium text-xl text-neutral-600">Type</h3>
@@ -88,10 +80,6 @@
                         </select>
                     </div>
                 </aside>
-                <section
-                    class="grow grid justify-items-center grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-y-4 mb-4"
-                    id="cardsContainer"
-                ></section>
             </article>
         </main>
         <footer class="flex flex-col items-center gap-y-1 px-6 py-2 text-gray-500 text-base bg-neutral-100">

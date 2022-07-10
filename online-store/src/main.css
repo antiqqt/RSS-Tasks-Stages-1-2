@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .isInCart {
+        @apply before:content-['Added'] before:absolute before:top-0 
+        before:right-0 before:block before:px-2 before:py-1 before:text-sm 
+        before:text-gray-800 before:font-semibold before:bg-blue-400 before:rounded;
+    }
+}

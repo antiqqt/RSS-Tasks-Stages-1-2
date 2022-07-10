@@ -1,5 +1,5 @@
 {
-    "item1": {
+    "1": {
         "type": "butter box",
         "color": "blue",
         "pattern": "aks",
@@ -11,7 +11,7 @@
         "id": "1",
         "inCart": false
     },
-    "item2": {
+    "2": {
         "type": "butter box",
         "color": "green",
         "pattern": "revy",
@@ -23,7 +23,7 @@
         "id": "2",
         "inCart": false
     },
-    "item3": {
+    "3": {
         "type": "butter box",
         "color": "petrol",
         "pattern": "pome pome",
@@ -35,7 +35,7 @@
         "id": "3",
         "inCart": false
     },
-    "item4": {
+    "4": {
         "type": "cup",
         "color": "dark blue",
         "pattern": "linie",
@@ -47,7 +47,7 @@
         "id": "4",
         "inCart": false
     },
-    "item5": {
+    "5": {
         "type": "cup",
         "color": "orange",
         "pattern": "revy",
@@ -59,7 +59,7 @@
         "id": "5",
         "inCart": false
     },
-    "item6": {
+    "6": {
         "type": "jar",
         "color": "dark blue",
         "pattern": "fjord",
@@ -71,7 +71,7 @@
         "id": "6",
         "inCart": false
     },
-    "item7": {
+    "7": {
         "type": "pitcher",
         "color": "dark blue",
         "pattern": "pome pome",
@@ -83,7 +83,7 @@
         "id": "7",
         "inCart": false
     },
-    "item8": {
+    "8": {
         "type": "pitcher",
         "color": "blue",
         "pattern": "linie",
@@ -95,7 +95,7 @@
         "id": "8",
         "inCart": false
     },
-    "item9": {
+    "9": {
         "type": "vase",
         "color": "blue",
         "pattern": "linie",
@@ -107,7 +107,7 @@
         "id": "9",
         "inCart": false
     },
-    "item10": {
+    "10": {
         "type": "oakwood grinder",
         "color": "yellow",
         "pattern": "no pattern",
@@ -119,7 +119,7 @@
         "id": "10",
         "inCart": false
     },
-    "item11": {
+    "11": {
         "type": "oakwood grinder",
         "color": "grey",
         "pattern": "no pattern",
@@ -131,7 +131,7 @@
         "id": "11",
         "inCart": false
     },
-    "item12": {
+    "12": {
         "type": "oakwood grinder",
         "color": "green",
         "pattern": "no pattern",
@@ -143,7 +143,7 @@
         "id": "12",
         "inCart": false
     },
-    "item13": {
+    "13": {
         "type": "oakwood grinder",
         "color": "dark blue",
         "pattern": "no pattern",
@@ -155,7 +155,7 @@
         "id": "13",
         "inCart": false
     },
-    "item14": {
+    "14": {
         "type": "oakwood grinder",
         "color": "mint",
         "pattern": "no pattern",
@@ -167,7 +167,7 @@
         "id": "14",
         "inCart": false
     },
-    "item15": {
+    "15": {
         "type": "oakwood grinder",
         "color": "petrol",
         "pattern": "no pattern",
@@ -179,7 +179,7 @@
         "id": "15",
         "inCart": false
     },
-    "item16": {
+    "16": {
         "type": "oakwood grinder",
         "color": "orange",
         "pattern": "no pattern",
@@ -191,7 +191,7 @@
         "id": "16",
         "inCart": false
     },
-    "item17": {
+    "17": {
         "type": "butter box",
         "color": "red",
         "pattern": "aks",
@@ -203,7 +203,7 @@
         "id": "17",
         "inCart": false
     },
-    "item18": {
+    "18": {
         "type": "butter box",
         "color": "red",
         "pattern": "revy",
@@ -215,7 +215,7 @@
         "id": "18",
         "inCart": false
     },
-    "item19": {
+    "19": {
         "type": "butter box",
         "color": "powder blue",
         "pattern": "revy",
@@ -227,7 +227,7 @@
         "id": "19",
         "inCart": false
     },
-    "item20": {
+    "20": {
         "type": "jar",
         "color": "dark blue",
         "pattern": "snor",
@@ -237,6 +237,18 @@
         "manufacturer": "okle",
         "imageLink": "./images/item-20",
         "id": "20",
+        "inCart": false
+    },
+    "21": {
+        "type": "tea towel",
+        "color": "green",
+        "pattern": "no pattern",
+        "price": "7",
+        "quantity": "1",
+        "releaseYear": "2020",
+        "manufacturer": "Lykke",
+        "imageLink": "./images/item-21",
+        "id": "21",
         "inCart": false
     }
 }
