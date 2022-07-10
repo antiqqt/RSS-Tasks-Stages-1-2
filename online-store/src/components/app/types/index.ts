@@ -3,9 +3,10 @@ export interface CardData {
     color: string;
     pattern: string;
     price: string;
-    imageLink: string;
     quantity: string;
     releaseYear: string;
     manufacturer: string;
-    description: string;
+    imageLink: string;
+    id: string;
+    inCart: boolean;
 }

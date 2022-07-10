@@ -29,13 +29,14 @@ export default class Cards {
                 const cardFields: Map<string, string> = new Map(Object.entries(cardData));
 
                 for (const [field, fieldVal] of cardFields.entries()) {
-                    if (field === 'imageLink' || field === 'description') {
+                    if (['imageLink', 'id', 'inCart'].includes(field)) {
                         continue;
                     }
 
                     const elem = document.createElement('p');
-
+                    elem.classList.add('capitalize');
                     elem.innerText = fieldVal;
+
                     if (field === 'quantity') {
                         elem.innerText += ' in stock';
                     }
@@ -43,7 +44,6 @@ export default class Cards {
                         elem.innerText += ' USD';
                     }
 
-                    elem.classList.add('capitalize');
                     cardInfo.append(elem);
                 }
 

@@ -4,219 +4,239 @@
         "color": "blue",
         "pattern": "aks",
         "price": "60",
-        "imageLink": "./images/item-1",
         "quantity": "3",
         "releaseYear": "2022",
         "manufacturer": "helbak",
-        "description": "We are kind of famous for this one. It makes butter look great on the table."
+        "imageLink": "./images/item-1",
+        "id": "1",
+        "inCart": false
     },
     "item2": {
         "type": "butter box",
         "color": "green",
         "pattern": "revy",
         "price": "60",
-        "imageLink": "./images/item-2",
         "quantity": "7",
         "releaseYear": "2022",
         "manufacturer": "helbak",
-        "description": "We are kind of famous for this one. It makes butter look great on the table."
+        "imageLink": "./images/item-2",
+        "id": "2",
+        "inCart": false
     },
     "item3": {
         "type": "butter box",
         "color": "petrol",
         "pattern": "pome pome",
         "price": "60",
-        "imageLink": "./images/item-3",
         "quantity": "9",
         "releaseYear": "2022",
         "manufacturer": "helbak",
-        "description": "We are kind of famous for this one. It makes butter look great on the table."
+        "imageLink": "./images/item-3",
+        "id": "3",
+        "inCart": false
     },
     "item4": {
         "type": "cup",
         "color": "dark blue",
         "pattern": "linie",
         "price": "40",
-        "imageLink": "./images/item-4",
         "quantity": "4",
         "releaseYear": "2020",
         "manufacturer": "okle",
-        "description": "Wearing a wooden lid and this new cup is perfect as a marmelade jar."
+        "imageLink": "./images/item-4",
+        "id": "4",
+        "inCart": false
     },
     "item5": {
         "type": "cup",
         "color": "orange",
         "pattern": "revy",
         "price": "20",
-        "imageLink": "./images/item-5",
         "quantity": "2",
         "releaseYear": "2020",
         "manufacturer": "okle",
-        "description": "We love this new size of cup. Nice to hold with two hands."
+        "imageLink": "./images/item-5",
+        "id": "5",
+        "inCart": false
     },
     "item6": {
         "type": "jar",
         "color": "dark blue",
         "pattern": "fjord",
         "price": "50",
-        "imageLink": "./images/item-6",
         "quantity": "8",
         "releaseYear": "2019",
         "manufacturer": "okle",
-        "description": "We use this size of jar for coffee beans. What would you use it for?"
+        "imageLink": "./images/item-6",
+        "id": "6",
+        "inCart": false
     },
     "item7": {
         "type": "pitcher",
         "color": "dark blue",
         "pattern": "pome pome",
         "price": "34",
-        "imageLink": "./images/item-7",
         "quantity": "10",
         "releaseYear": "2018",
         "manufacturer": "Lykke",
-        "description": "We find it perfect for warm milk for the coffee."
+        "imageLink": "./images/item-7",
+        "id": "7",
+        "inCart": false
     },
     "item8": {
         "type": "pitcher",
         "color": "blue",
         "pattern": "linie",
         "price": "34",
-        "imageLink": "./images/item-8",
         "quantity": "4",
         "releaseYear": "2018",
         "manufacturer": "Lykke",
-        "description": "We serve warm milk for the coffee in this one."
+        "imageLink": "./images/item-8",
+        "id": "8",
+        "inCart": false
     },
     "item9": {
         "type": "vase",
         "color": "blue",
         "pattern": "linie",
         "price": "47",
-        "imageLink": "./images/item-9",
         "quantity": "5",
         "releaseYear": "2017",
         "manufacturer": "okle",
-        "description": "For your favorite flowers."
+        "imageLink": "./images/item-9",
+        "id": "9",
+        "inCart": false
     },
     "item10": {
         "type": "oakwood grinder",
         "color": "yellow",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-10",
         "quantity": "2",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-10",
+        "id": "10",
+        "inCart": false
     },
     "item11": {
         "type": "oakwood grinder",
         "color": "grey",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-11",
         "quantity": "13",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-11",
+        "id": "11",
+        "inCart": false
     },
     "item12": {
         "type": "oakwood grinder",
         "color": "green",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-12",
         "quantity": "9",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-12",
+        "id": "12",
+        "inCart": false
     },
     "item13": {
         "type": "oakwood grinder",
         "color": "dark blue",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-13",
         "quantity": "7",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-13",
+        "id": "13",
+        "inCart": false
     },
     "item14": {
         "type": "oakwood grinder",
         "color": "mint",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-14",
         "quantity": "5",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-14",
+        "id": "14",
+        "inCart": false
     },
     "item15": {
         "type": "oakwood grinder",
         "color": "petrol",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-15",
         "quantity": "6",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-15",
+        "id": "15",
+        "inCart": false
     },
     "item16": {
         "type": "oakwood grinder",
         "color": "orange",
         "pattern": "no pattern",
         "price": "55",
-        "imageLink": "./images/item-16",
         "quantity": "1",
         "releaseYear": "2015",
         "manufacturer": "helbak",
-        "description": "One piece of the finest oakwood, made in to this handy and smooth working grinder, AND on top of this, a piece of our handdecorated ceramic. Inside we mounted the ceramic Chrushgrind, which has a warranty of 25 years, and it takes salt OR pepper .....or whatever you need grinded."
+        "imageLink": "./images/item-16",
+        "id": "16",
+        "inCart": false
     },
     "item17": {
         "type": "butter box",
         "color": "red",
         "pattern": "aks",
         "price": "60",
-        "imageLink": "./images/item-17",
         "quantity": "2",
         "releaseYear": "2022",
         "manufacturer": "helbak",
-        "description": "We are kind of famous for this one. It makes butter look great on the table."
+        "imageLink": "./images/item-17",
+        "id": "17",
+        "inCart": false
     },
     "item18": {
         "type": "butter box",
         "color": "red",
         "pattern": "revy",
         "price": "60",
-        "imageLink": "./images/item-18",
         "quantity": "6",
         "releaseYear": "2022",
         "manufacturer": "helbak",
-        "description": "We are kind of famous for this one. It makes butter look great on the table."
+        "imageLink": "./images/item-18",
+        "id": "18",
+        "inCart": false
     },
     "item19": {
         "type": "butter box",
         "color": "powder blue",
         "pattern": "revy",
         "price": "60",
-        "imageLink": "./images/item-19",
         "quantity": "12",
         "releaseYear": "2022",
         "manufacturer": "helbak",
-        "description": "We are kind of famous for this one. It makes butter look great on the table."
+        "imageLink": "./images/item-19",
+        "id": "19",
+        "inCart": false
     },
     "item20": {
         "type": "jar",
         "color": "dark blue",
         "pattern": "snor",
         "price": "50",
-        "imageLink": "./images/item-20",
         "quantity": "5",
         "releaseYear": "2019",
         "manufacturer": "okle",
-        "description": "Dark blue is our favorite colour at the moment. Which is your favorite colour?"
+        "imageLink": "./images/item-20",
+        "id": "20",
+        "inCart": false
     }
 }
