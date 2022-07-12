@@ -11,6 +11,11 @@ export default class App {
     }
 
     public start(): void {
+        this.view.drawFilter('type', this.controller.getFilterOptions('type'));
+        this.view.drawFilter('color', this.controller.getFilterOptions('color'));
+        this.view.drawFilter('pattern', this.controller.getFilterOptions('pattern'));
+        this.view.drawFilter('manufacturer', this.controller.getFilterOptions('manufacturer'));
+
         this.view.drawCards(this.controller.getCardsData());
         this.addCartHandler();
     }

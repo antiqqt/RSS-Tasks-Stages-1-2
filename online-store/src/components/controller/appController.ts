@@ -1,4 +1,4 @@
-import { CardsData, Errors } from '../../types';
+import { CardData, CardsData, Errors, FilterOption } from '../../types';
 import Model from '../model/appModel';
 
 export default class Controller {
@@ -36,5 +36,13 @@ export default class Controller {
     getNumOfItemsInCart(): number {
         const items = [...this.getCardsData().values()];
         return items.filter((item) => item.inCart).length;
+    }
+
+    getFilterOptions(filterType: keyof CardData): FilterOption[] {
+        const options = new Set<FilterOption>();
+
+        this.getCardsData().forEach((item) => options.add(item[filterType]));
+
+        return [...options];
     }
 }

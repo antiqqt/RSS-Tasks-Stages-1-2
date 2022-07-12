@@ -15,11 +15,6 @@ export default class Cards {
             'gap-y-4',
             'mb-4'
         );
-
-        const mainContent = document.getElementById('mainContent');
-        if (mainContent != null) {
-            mainContent.append(this.element);
-        }
     }
 
     public draw(data: CardsData): void {

@@ -16,3 +16,5 @@ export type CardsData = Map<string, CardData>;
 export enum Errors {
     InvalidID = 'Invalid item id',
 }
+
+export type FilterOption = CardData[keyof CardData];
