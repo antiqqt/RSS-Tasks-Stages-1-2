@@ -17,4 +17,8 @@ export enum Errors {
     InvalidID = 'Invalid item id',
 }
 
+export type SortField = 'price' | 'type';
+
+export type SortFieldType = 'a' | 'z' | 'lowest' | 'highest';
+
 export type FilterOption = CardData[keyof CardData];

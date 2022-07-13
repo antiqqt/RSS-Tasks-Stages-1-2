@@ -1,3 +1,4 @@
+import { SortField, SortFieldType } from '../../types';
 import Controller from '../controller/appController';
 import View from '../view/appView';
 
@@ -17,11 +18,28 @@ export default class App {
         this.view.drawFilter('manufacturer', this.controller.getFilterOptions('manufacturer'));
 
         this.view.drawCards(this.controller.getCardsData());
+        this.view.sortCards('type', 'a');
+
         this.addCartHandler();
+        this.addSortHandler();
+
+        const header = document.getElementById('header');
+        if (header !== null) {
+            header.append(this.view.getCartElement());
+        }
+
+        const mainContent = document.getElementById('mainContent');
+        if (mainContent != null) {
+            const filters = this.view.getFiltersContainer();
+            filters.prepend(this.view.getSortElement());
+
+            mainContent.append(filters, this.view.getCardsContainer());
+        }
     }
 
     private addCartHandler(): void {
         const cardsContainer = this.view.getCardsContainer();
+
         cardsContainer.addEventListener('click', (e: Event) => {
             if (!(e.target instanceof Element)) return;
 
@@ -49,6 +67,18 @@ export default class App {
             }
 
             this.view.updateCartCounter(this.controller.getNumOfItemsInCart());
+        });
+    }
+
+    private addSortHandler(): void {
+        const sortSelectElement = this.view.getSortSelectElement();
+
+        sortSelectElement.addEventListener('change', () => {
+            const options = sortSelectElement.options;
+            const selectedOption = options[options.selectedIndex];
+            const [field, type] = selectedOption.value.split('-') as [SortField, SortFieldType];
+
+            this.view.sortCards(field, type);
         });
     }
 }

@@ -1,4 +1,4 @@
-import { CardData, CardsData } from '../../../types';
+import { CardData, CardsData, SortField, SortFieldType } from '../../../types';
 
 export default class Cards {
     readonly element;
@@ -53,6 +53,7 @@ export default class Cards {
                     const elem = document.createElement('p');
                     elem.classList.add('capitalize');
                     elem.innerText = String(fieldVal);
+                    elem.dataset.field = field;
 
                     if (field === 'quantity') {
                         elem.innerText += ' in stock';
@@ -70,5 +71,35 @@ export default class Cards {
                 this.element.append(cardWrapper);
             });
         }
+    }
+
+    public sort(field: SortField, type: SortFieldType): void {
+        const sortedCards = [...this.element.children];
+
+        sortedCards.sort((a, b) => {
+            const aFieldElem = a.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
+            const bFieldElem = b.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
+            if (aFieldElem == null) return 0;
+            if (bFieldElem == null) return 0;
+
+            const aText = aFieldElem.innerText;
+            const bText = bFieldElem.innerText;
+
+            if (field === 'type') {
+                return type === 'a' ? aText.localeCompare(bText) : bText.localeCompare(aText);
+            }
+
+            if (field === 'price') {
+                const aPrice = Number.parseInt(aText);
+                const bPrice = Number.parseInt(bText);
+
+                return type === 'lowest' ? aPrice - bPrice : bPrice - aPrice;
+            }
+
+            return 0;
+        });
+
+        this.element.innerHTML = '';
+        this.element.append(...sortedCards);
     }
 }

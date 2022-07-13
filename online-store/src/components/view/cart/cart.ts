@@ -1,5 +1,5 @@
 export default class Cart {
-    private element: HTMLElement;
+    readonly element: HTMLElement;
     private counter: HTMLElement;
     private modal: HTMLElement;
 
@@ -14,11 +14,6 @@ export default class Cart {
         this.constructModal();
 
         this.element.append(this.counter, this.modal);
-
-        const header = document.getElementById('header');
-        if (header !== null) {
-            header.append(this.element);
-        }
     }
 
     private constructElement(): void {
