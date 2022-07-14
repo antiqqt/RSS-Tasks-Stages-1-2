@@ -22,3 +22,5 @@ export type SortField = 'price' | 'type';
 export type SortFieldType = 'a' | 'z' | 'lowest' | 'highest';
 
 export type FilterOption = CardData[keyof CardData];
+
+export type SearchQuery = Map<keyof CardData, string[]>;

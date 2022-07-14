@@ -2,8 +2,11 @@ import { CardData, CardsData, SortField, SortFieldType } from '../../../types';
 
 export default class Cards {
     readonly element;
+    private sortOrder: [SortField, SortFieldType];
 
-    constructor() {
+    constructor(sortOrder: [SortField, SortFieldType] = ['type', 'a']) {
+        this.sortOrder = sortOrder;
+
         this.element = document.createElement('section');
         this.element.classList.add(
             'grow',
@@ -75,6 +78,7 @@ export default class Cards {
 
     public sort(field: SortField, type: SortFieldType): void {
         const sortedCards = [...this.element.children];
+        this.sortOrder = [field, type];
 
         sortedCards.sort((a, b) => {
             const aFieldElem = a.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
@@ -101,5 +105,11 @@ export default class Cards {
 
         this.element.innerHTML = '';
         this.element.append(...sortedCards);
+    }
+
+    public redraw(data: CardsData): void {
+        this.element.innerHTML = '';
+        this.draw(data);
+        this.sort(...this.sortOrder);
     }
 }

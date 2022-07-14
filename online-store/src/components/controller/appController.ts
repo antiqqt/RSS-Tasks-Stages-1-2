@@ -1,4 +1,4 @@
-import { CardData, CardsData, Errors, FilterOption } from '../../types';
+import { CardData, CardsData, Errors, FilterOption, SearchQuery } from '../../types';
 import Model from '../model/appModel';
 
 export default class Controller {
@@ -44,5 +44,28 @@ export default class Controller {
         this.getCardsData().forEach((item) => options.add(item[filterType]));
 
         return [...options];
+    }
+
+    getFilteredCardsData(query: SearchQuery): CardsData {
+        const cardsDataCopy = new Map(this.getCardsData());
+
+        for (const cardData of cardsDataCopy.values()) {
+            let cardIsValid = true;
+
+            for (const key of query.keys()) {
+                const searchedValues = query.get(key) || [];
+
+                const filterIsBlank = searchedValues.length === 0;
+                if (filterIsBlank) continue;
+
+                const fieldIsValid = searchedValues.includes(String(cardData[key]));
+                if (!fieldIsValid) {
+                    cardIsValid = false;
+                }
+            }
+
+            if (!cardIsValid) cardsDataCopy.delete(cardData.id);
+        }
+        return cardsDataCopy;
     }
 }

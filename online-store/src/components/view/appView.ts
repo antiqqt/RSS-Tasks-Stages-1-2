@@ -1,4 +1,4 @@
-import { CardData, CardsData, FilterOption, SortField, SortFieldType } from '../../types';
+import { CardData, CardsData, FilterOption, SearchQuery, SortField, SortFieldType } from '../../types';
 import Cards from './cards/cards';
 import Cart from './cart/cart';
 import Filters from './filters/filters';
@@ -55,5 +55,13 @@ export default class View {
 
     public getSortSelectElement(): HTMLSelectElement {
         return this.sort.selectElement;
+    }
+
+    public getFilterQuery(): SearchQuery {
+        return this.filters.getQuery();
+    }
+
+    public redrawCards(data: CardsData): void {
+        this.cards.redraw(data);
     }
 }

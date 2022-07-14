@@ -37,7 +37,7 @@
     },
     "4": {
         "type": "cup",
-        "color": "dark blue",
+        "color": "blue",
         "pattern": "linie",
         "price": "40",
         "quantity": "4",
@@ -61,7 +61,7 @@
     },
     "6": {
         "type": "jar",
-        "color": "dark blue",
+        "color": "blue",
         "pattern": "fjord",
         "price": "50",
         "quantity": "8",
@@ -73,12 +73,12 @@
     },
     "7": {
         "type": "pitcher",
-        "color": "dark blue",
+        "color": "blue",
         "pattern": "pome pome",
         "price": "34",
         "quantity": "10",
         "releaseYear": "2018",
-        "manufacturer": "Lykke",
+        "manufacturer": "lykke",
         "imageLink": "./images/item-7",
         "id": "7",
         "inCart": false
@@ -90,7 +90,7 @@
         "price": "34",
         "quantity": "4",
         "releaseYear": "2018",
-        "manufacturer": "Lykke",
+        "manufacturer": "lykke",
         "imageLink": "./images/item-8",
         "id": "8",
         "inCart": false
@@ -145,7 +145,7 @@
     },
     "13": {
         "type": "oakwood grinder",
-        "color": "dark blue",
+        "color": "blue",
         "pattern": "no pattern",
         "price": "55",
         "quantity": "7",
@@ -217,7 +217,7 @@
     },
     "19": {
         "type": "butter box",
-        "color": "powder blue",
+        "color": "blue",
         "pattern": "revy",
         "price": "60",
         "quantity": "12",
@@ -229,7 +229,7 @@
     },
     "20": {
         "type": "jar",
-        "color": "dark blue",
+        "color": "blue",
         "pattern": "snor",
         "price": "50",
         "quantity": "5",
@@ -246,7 +246,7 @@
         "price": "7",
         "quantity": "1",
         "releaseYear": "2020",
-        "manufacturer": "Lykke",
+        "manufacturer": "lykke",
         "imageLink": "./images/item-21",
         "id": "21",
         "inCart": false

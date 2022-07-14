@@ -8,4 +8,25 @@
         before:right-0 before:block before:px-2 before:py-1 before:text-sm 
         before:text-gray-800 before:font-semibold before:bg-blue-400 before:rounded;
     }
+
+    .checked {
+        @apply before:content-['✕'] before:absolute before:-top-[0.2rem] 
+        before:left-[0.075rem] before:font-medium before:text-gray-100;
+    }
+
+    .scrollable::-webkit-scrollbar {
+        @apply w-2;
+    }
+
+    .scrollable::-webkit-scrollbar-track {
+        @apply rounded-[100vh] bg-gray-200;
+    }
+
+    .scrollable::-webkit-scrollbar-thumb {
+        @apply w-full border-2 rounded-md  bg-gray-300 border-blue-400;
+    }
+
+    .scrollable::-webkit-scrollbar-thumb:hover {
+        @apply bg-blue-400 transition-colors duration-200;
+    }
 }

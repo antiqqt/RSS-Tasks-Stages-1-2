@@ -22,6 +22,7 @@ export default class App {
 
         this.addCartHandler();
         this.addSortHandler();
+        this.addFiltersHandler();
 
         const header = document.getElementById('header');
         if (header !== null) {
@@ -30,10 +31,12 @@ export default class App {
 
         const mainContent = document.getElementById('mainContent');
         if (mainContent != null) {
-            const filters = this.view.getFiltersContainer();
-            filters.prepend(this.view.getSortElement());
+            mainContent.append(this.view.getCardsContainer());
+        }
 
-            mainContent.append(filters, this.view.getCardsContainer());
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar != null) {
+            sidebar.append(this.view.getSortElement(), this.view.getFiltersContainer());
         }
     }
 
@@ -79,6 +82,16 @@ export default class App {
             const [field, type] = selectedOption.value.split('-') as [SortField, SortFieldType];
 
             this.view.sortCards(field, type);
+        });
+    }
+
+    private addFiltersHandler(): void {
+        const filters = this.view.getFiltersContainer();
+
+        filters.addEventListener('change', () => {
+            const query = this.view.getFilterQuery();
+            const validCardsData = this.controller.getFilteredCardsData(query);
+            this.view.redrawCards(validCardsData);
         });
     }
 }
