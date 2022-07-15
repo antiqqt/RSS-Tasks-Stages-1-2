@@ -26,7 +26,7 @@ export default class View {
     }
 
     public getCardsContainer(): HTMLElement {
-        return this.cards.element;
+        return this.cards.containerElem;
     }
 
     public getCartElement(): HTMLElement {

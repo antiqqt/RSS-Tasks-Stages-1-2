@@ -1,15 +1,32 @@
 import { CardData, CardsData, SortField, SortFieldType } from '../../../types';
 
 export default class Cards {
-    readonly element;
+    readonly containerElem;
     private sortOrder: [SortField, SortFieldType];
+    private cardsElem: HTMLDivElement;
+    private noResultsElem: HTMLDivElement;
 
     constructor(sortOrder: [SortField, SortFieldType] = ['type', 'a']) {
         this.sortOrder = sortOrder;
 
-        this.element = document.createElement('section');
-        this.element.classList.add(
-            'grow',
+        this.containerElem = document.createElement('section');
+        this.constructContainer();
+
+        this.cardsElem = document.createElement('div');
+        this.constructCardsElem();
+
+        this.noResultsElem = document.createElement('div');
+        this.constructNoResultsElem();
+
+        this.containerElem.append(this.cardsElem, this.noResultsElem);
+    }
+
+    private constructContainer(): void {
+        this.containerElem.classList.add('grow');
+    }
+
+    private constructCardsElem(): void {
+        this.cardsElem.classList.add(
             'grid',
             'justify-items-center',
             'grid-cols-3',
@@ -20,8 +37,37 @@ export default class Cards {
         );
     }
 
+    private clearCardsElem(): void {
+        while (this.cardsElem.firstChild) {
+            this.cardsElem.firstChild.remove();
+        }
+    }
+
+    private constructNoResultsElem(): void {
+        const header = document.createElement('h3');
+        const text = document.createElement('p');
+
+        this.noResultsElem.classList.add('hidden', 'flex', 'flex-col', 'justify-center', 'items-center', 'h-full');
+
+        header.classList.add('mb-4', 'font-medium', 'text-xl', 'text-neutral-600');
+        header.innerText = 'No matching results';
+
+        text.classList.add('mb-4', 'w-3/4', 'text-sm', 'text-center');
+        text.innerText = 'Unfortunately, no matching items were found. Try resetting the filters.';
+
+        this.noResultsElem.append(header, text);
+    }
+
+    private showNoResultsElem(): void {
+        this.noResultsElem.classList.remove('hidden');
+    }
+
+    private hideNoResultsElem(): void {
+        this.noResultsElem.classList.add('hidden');
+    }
+
     public draw(data: CardsData): void {
-        if (this.element !== null) {
+        if (this.cardsElem !== null) {
             data.forEach((cardData: CardData) => {
                 const cardWrapper = document.createElement('div');
                 const card = document.createElement('figure');
@@ -71,13 +117,13 @@ export default class Cards {
                 cardImgWrapper.append(cardImg);
                 card.append(cardImgWrapper, cardInfo);
                 cardWrapper.append(card);
-                this.element.append(cardWrapper);
+                this.cardsElem.append(cardWrapper);
             });
         }
     }
 
     public sort(field: SortField, type: SortFieldType): void {
-        const sortedCards = [...this.element.children];
+        const sortedCards = [...this.cardsElem.children];
         this.sortOrder = [field, type];
 
         sortedCards.sort((a, b) => {
@@ -103,12 +149,19 @@ export default class Cards {
             return 0;
         });
 
-        this.element.innerHTML = '';
-        this.element.append(...sortedCards);
+        this.clearCardsElem();
+        this.cardsElem.append(...sortedCards);
     }
 
     public redraw(data: CardsData): void {
-        this.element.innerHTML = '';
+        this.clearCardsElem();
+
+        if (data.size === 0) {
+            this.showNoResultsElem();
+            return;
+        }
+
+        this.hideNoResultsElem();
         this.draw(data);
         this.sort(...this.sortOrder);
     }

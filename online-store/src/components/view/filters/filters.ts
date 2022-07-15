@@ -34,7 +34,7 @@ export default class Filters {
         this.filters.push(newFilter);
     }
 
-    getQuery(): SearchQuery {
+    public getQuery(): SearchQuery {
         const query: SearchQuery = new Map();
         return this.filters.reduce((query, filter) => query.set(filter.type, filter.getChosenOptions()), query);
     }
