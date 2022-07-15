@@ -11,7 +11,7 @@ export class Filter {
         this.chosenOptions = new Set();
 
         this.element = document.createElement('div');
-        this.constructElement(type);
+        this.constructOwnElement(type);
 
         this.listElement = document.createElement('ul');
         this.constructOptionList(type, options);
@@ -35,7 +35,7 @@ export class Filter {
         }
     }
 
-    private constructElement(type: string): void {
+    private constructOwnElement(type: string): void {
         const header = document.createElement('h4');
         header.innerText = type;
         header.classList.add('mb-2', 'font-medium', 'text-md', 'text-neutral-600', 'capitalize');

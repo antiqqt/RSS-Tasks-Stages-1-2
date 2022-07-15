@@ -4,7 +4,7 @@ export interface CardData {
     pattern: string;
     price: string;
     quantity: string;
-    releaseYear: string;
+    year: string;
     manufacturer: string;
     imageLink: string;
     id: string;

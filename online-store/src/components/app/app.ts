@@ -17,6 +17,9 @@ export default class App {
         this.view.drawFilter('pattern', this.controller.getFilterOptions('pattern'));
         this.view.drawFilter('manufacturer', this.controller.getFilterOptions('manufacturer'));
 
+        this.view.drawSlider('quantity');
+        this.view.drawSlider('year');
+
         this.view.drawCards(this.controller.getCardsData());
         this.view.sortCards('type', 'a');
 
@@ -87,11 +90,16 @@ export default class App {
 
     private addFiltersHandler(): void {
         const filters = this.view.getFiltersContainer();
+        const sliders = this.view.getSliders();
 
-        filters.addEventListener('change', () => {
+        const updateCars = (): void => {
             const query = this.view.getFilterQuery();
             const validCardsData = this.controller.getFilteredCardsData(query);
             this.view.redrawCards(validCardsData);
-        });
+        };
+
+        filters.addEventListener('change', updateCars);
+
+        sliders.forEach((slider) => slider.onChange(updateCars));
     }
 }

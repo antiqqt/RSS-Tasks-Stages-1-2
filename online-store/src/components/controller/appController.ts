@@ -53,15 +53,21 @@ export default class Controller {
             let cardIsValid = true;
 
             for (const key of query.keys()) {
+                let fieldIsValid: boolean;
                 const searchedValues = query.get(key) || [];
 
                 const filterIsBlank = searchedValues.length === 0;
                 if (filterIsBlank) continue;
 
-                const fieldIsValid = searchedValues.includes(String(cardData[key]));
-                if (!fieldIsValid) {
-                    cardIsValid = false;
+                if (key === 'quantity' || key === 'year') {
+                    const [from, to] = searchedValues.map(Number);
+                    const fieldValAsNumber = Number.parseInt(cardData[key]);
+                    fieldIsValid = fieldValAsNumber >= from && fieldValAsNumber <= to;
+                } else {
+                    fieldIsValid = searchedValues.includes(String(cardData[key]));
                 }
+
+                if (!fieldIsValid) cardIsValid = false;
             }
 
             if (!cardIsValid) cardsDataCopy.delete(cardData.id);

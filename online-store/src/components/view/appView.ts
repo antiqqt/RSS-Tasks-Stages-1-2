@@ -2,6 +2,7 @@ import { CardData, CardsData, FilterOption, SearchQuery, SortField, SortFieldTyp
 import Cards from './cards/cards';
 import Cart from './cart/cart';
 import Filters from './filters/filters';
+import Slider from './slider/slider';
 import Sort from './sort/sort';
 
 export default class View {
@@ -63,5 +64,13 @@ export default class View {
 
     public redrawCards(data: CardsData): void {
         this.cards.redraw(data);
+    }
+
+    public drawSlider(type: 'quantity' | 'year'): void {
+        this.filters.addSlider(type);
+    }
+
+    public getSliders(): Slider[] {
+        return this.filters.getSliders();
     }
 }

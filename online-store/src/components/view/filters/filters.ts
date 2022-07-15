@@ -1,9 +1,10 @@
 import { CardData, FilterOption, SearchQuery } from '../../../types';
 import { Filter } from '../filter/filter';
+import Slider from '../slider/slider';
 
 export default class Filters {
     readonly element: HTMLDivElement;
-    private filters: Filter[];
+    private filters: (Filter | Slider)[];
 
     constructor() {
         this.filters = [];
@@ -34,8 +35,19 @@ export default class Filters {
         this.filters.push(newFilter);
     }
 
+    public addSlider(type: 'quantity' | 'year'): void {
+        const newSlider = new Slider(type);
+
+        this.element.append(newSlider.element);
+        this.filters.push(newSlider);
+    }
+
     public getQuery(): SearchQuery {
         const query: SearchQuery = new Map();
         return this.filters.reduce((query, filter) => query.set(filter.type, filter.getChosenOptions()), query);
+    }
+
+    public getSliders(): Slider[] {
+        return this.filters.filter((filter) => filter instanceof Slider) as Slider[];
     }
 }
