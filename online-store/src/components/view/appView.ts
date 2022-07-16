@@ -2,7 +2,7 @@ import { CardData, CardsData, FilterOption, SearchQuery, SortField, SortFieldTyp
 import Cards from './cards/cards';
 import Cart from './cart/cart';
 import Filters from './filters/filters';
-import Slider from './slider/slider';
+import Slider from './filters/slider/slider';
 import Sort from './sort/sort';
 
 export default class View {
@@ -72,5 +72,17 @@ export default class View {
 
     public getSliders(): Slider[] {
         return this.filters.getSliders();
+    }
+
+    public addResetBtn(): void {
+        this.filters.addResetBtn();
+    }
+
+    public addResetBtnOnClick(callback: () => void): void {
+        this.filters.addResetBtnOnClick(callback);
+    }
+
+    public resetAllFilters(): void {
+        this.filters.resetAll();
     }
 }

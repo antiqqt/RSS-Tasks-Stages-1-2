@@ -75,6 +75,7 @@ export default class Cards {
                 const cardImg = document.createElement('img');
                 const cardInfo = document.createElement('figcaption');
 
+                if (cardData.inCart) cardWrapper.classList.add('isInCart');
                 cardWrapper.classList.add('relative', 'h-48', 'w-44', 'overflow-hidden', 'lg:w-52', 'xl:w-60');
                 card.classList.add(
                     'h-96',
@@ -88,9 +89,9 @@ export default class Cards {
                 cardInfo.classList.add('flex', 'flex-col', 'justify-evenly', 'text-center', 'h-1/2');
 
                 card.dataset.id = cardData.id;
-                card.dataset.inCart = String(cardData.inCart);
                 cardImg.src = `${cardData.imageLink}.webp`;
                 cardImg.alt = cardData.type;
+                card.dataset.inCart = String(cardData.inCart);
 
                 const cardFields: Map<string, CardData[keyof CardData]> = new Map(Object.entries(cardData));
 

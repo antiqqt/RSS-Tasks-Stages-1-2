@@ -20,12 +20,15 @@ export default class App {
         this.view.drawSlider('quantity');
         this.view.drawSlider('year');
 
+        this.view.addResetBtn();
+
         this.view.drawCards(this.controller.getCardsData());
         this.view.sortCards('type', 'a');
 
         this.addCartHandler();
         this.addSortHandler();
         this.addFiltersHandler();
+        this.addResetHandler();
 
         const header = document.getElementById('header');
         if (header !== null) {
@@ -101,5 +104,12 @@ export default class App {
         filters.addEventListener('change', updateCars);
 
         sliders.forEach((slider) => slider.onChange(updateCars));
+    }
+
+    private addResetHandler(): void {
+        this.view.addResetBtnOnClick(() => {
+            this.view.resetAllFilters();
+            this.view.redrawCards(this.controller.getCardsData());
+        });
     }
 }

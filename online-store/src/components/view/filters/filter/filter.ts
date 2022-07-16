@@ -1,4 +1,4 @@
-import { CardData, FilterOption } from '../../../types';
+import { CardData, FilterOption } from '../../../../types';
 
 export class Filter {
     readonly element: HTMLElement;
@@ -113,5 +113,12 @@ export class Filter {
 
     public getChosenOptions(): string[] {
         return [...this.chosenOptions];
+    }
+
+    public reset(): void {
+        this.chosenOptions.clear();
+
+        const checkboxes = this.listElement.querySelectorAll<HTMLInputElement>('input[type=checkbox]');
+        checkboxes.forEach((checkbox) => (checkbox.checked = false));
     }
 }

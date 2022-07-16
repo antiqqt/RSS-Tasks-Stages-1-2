@@ -70,4 +70,8 @@ export default class Slider {
     public onChange(handler: EventCallback): void {
         this.slider.noUiSlider?.on('change', handler);
     }
+
+    public reset(): void {
+        this.slider.noUiSlider?.reset();
+    }
 }
