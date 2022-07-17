@@ -2,13 +2,11 @@ import { CardData, CardsData, SortField, SortFieldType } from '../../../types';
 
 export default class Cards {
     readonly containerElem;
-    private sortOrder: [SortField, SortFieldType];
+    private sortOrder: [SortField, SortFieldType] = ['type', 'a'];
     private cardsElem: HTMLDivElement;
     private noResultsElem: HTMLDivElement;
 
-    constructor(sortOrder: [SortField, SortFieldType] = ['type', 'a']) {
-        this.sortOrder = sortOrder;
-
+    constructor() {
         this.containerElem = document.createElement('section');
         this.constructContainer();
 
@@ -123,13 +121,14 @@ export default class Cards {
         }
     }
 
-    public sort(field: SortField, type: SortFieldType): void {
+    public sort(sortOrder: [SortField, SortFieldType]): void {
+        this.sortOrder = sortOrder;
+        const [field, type] = sortOrder;
         const sortedCards = [...this.cardsElem.children];
-        this.sortOrder = [field, type];
 
         sortedCards.sort((a, b) => {
-            const aFieldElem = a.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
-            const bFieldElem = b.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
+            const aFieldElem = a.querySelector(`[data-field=${field}]`) as HTMLParagraphElement;
+            const bFieldElem = b.querySelector(`[data-field=${field}]`) as HTMLParagraphElement;
             if (aFieldElem == null) return 0;
             if (bFieldElem == null) return 0;
 
@@ -164,6 +163,6 @@ export default class Cards {
 
         this.hideNoResultsElem();
         this.draw(data);
-        this.sort(...this.sortOrder);
+        this.sort(this.sortOrder);
     }
 }

@@ -1,19 +1,21 @@
 import { CardData, FilterOption, SearchQuery } from '../../../types';
 import { Filter } from './filter/filter';
 import Slider from './slider/slider';
-import { ResetBtn } from './resetBtn/resetBtn';
+import ResetBtn from './resetBtn/resetBtn';
 
 export default class Filters {
     readonly element: HTMLDivElement;
     private filters: (Filter | Slider)[];
-    private resetBtn: ResetBtn;
+    private resetFiltersBtn: ResetBtn;
+    private resetSettingsBtn: ResetBtn;
 
     constructor() {
         this.filters = [];
-        this.resetBtn = new ResetBtn();
+        this.resetFiltersBtn = new ResetBtn('Reset filters');
+        this.resetSettingsBtn = new ResetBtn('Reset settings');
 
         this.element = document.createElement('div');
-        this.constructElement();
+        this.constructOwnElement();
 
         const header = document.createElement('h3');
         header.innerText = 'Filters';
@@ -29,8 +31,12 @@ export default class Filters {
         this.element.append(header);
     }
 
-    private constructElement(): void {
+    private constructOwnElement(): void {
         this.element.classList.add('flex', 'flex-col', 'gap-y-3');
+    }
+
+    private appendElem(elem: HTMLElement): void {
+        this.element.append(elem);
     }
 
     public addFilter(type: keyof CardData, options: FilterOption[]): void {
@@ -55,15 +61,37 @@ export default class Filters {
         return this.filters.filter((filter) => filter instanceof Slider) as Slider[];
     }
 
-    public addResetBtn(): void {
-        this.element.append(this.resetBtn.element);
+    public addResetBtn(type: 'filters' | 'settings'): void {
+        type === 'filters'
+            ? this.appendElem(this.resetFiltersBtn.element)
+            : this.appendElem(this.resetSettingsBtn.element);
     }
 
-    public addResetBtnOnClick(callback: () => void): void {
-        this.resetBtn.element.addEventListener('click', callback);
+    public addResetBtnOnClick(type: 'filters' | 'settings', callback: () => void): void {
+        type === 'filters'
+            ? this.resetFiltersBtn.element.addEventListener('click', callback)
+            : this.resetSettingsBtn.element.addEventListener('click', callback);
+    }
+
+    public addResetFiltersBtn(): void {
+        this.element.append(this.resetFiltersBtn.element);
+    }
+
+    public addResetFiltersBtnOnClick(callback: () => void): void {
+        this.resetFiltersBtn.element.addEventListener('click', callback);
     }
 
     public resetAll(): void {
         this.filters.forEach((filter) => filter.reset());
+    }
+
+    public applySavedState(savedQuery: SearchQuery): void {
+        for (const filter of this.filters) {
+            const savedState = savedQuery.get(filter.type);
+            if (savedState == null) continue;
+            if (savedState.length < 1) continue;
+
+            filter.setSavedOptions(savedState);
+        }
     }
 }

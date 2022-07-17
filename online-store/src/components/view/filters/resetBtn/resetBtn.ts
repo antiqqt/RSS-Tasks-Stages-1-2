@@ -1,13 +1,13 @@
-export class ResetBtn {
+export default class ResetBtn {
     readonly element: HTMLButtonElement;
 
-    constructor() {
+    constructor(innerText: string) {
         this.element = document.createElement('button');
-        this.constructOwnElement();
+        this.constructOwnElement(innerText);
     }
 
-    private constructOwnElement(): void {
-        this.element.innerText = 'Reset filters';
+    private constructOwnElement(innerText: string): void {
+        this.element.innerText = innerText;
         this.element.classList.add(
             'block',
             'mx-auto',

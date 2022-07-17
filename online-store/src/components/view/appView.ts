@@ -18,8 +18,8 @@ export default class View {
         this.filters = new Filters();
     }
 
-    public sortCards(field: SortField, type: SortFieldType): void {
-        this.cards.sort(field, type);
+    public sortCards(sortOrder: [SortField, SortFieldType]): void {
+        this.cards.sort(sortOrder);
     }
 
     public drawCards(data: CardsData): void {
@@ -74,15 +74,31 @@ export default class View {
         return this.filters.getSliders();
     }
 
-    public addResetBtn(): void {
-        this.filters.addResetBtn();
+    public addResetFiltersBtn(): void {
+        this.filters.addResetBtn('filters');
     }
 
-    public addResetBtnOnClick(callback: () => void): void {
-        this.filters.addResetBtnOnClick(callback);
+    public addResetSettingsBtn(): void {
+        this.filters.addResetBtn('settings');
+    }
+
+    public addResetFiltersBtnOnClick(callback: () => void): void {
+        this.filters.addResetBtnOnClick('filters', callback);
+    }
+
+    public addResetSettingsBtnOnClick(callback: () => void): void {
+        this.filters.addResetBtnOnClick('settings', callback);
     }
 
     public resetAllFilters(): void {
         this.filters.resetAll();
+    }
+
+    public applySavedFiltersState(query: SearchQuery): void {
+        this.filters.applySavedState(query);
+    }
+
+    public setSortOption(newSortOrder: [SortField, SortFieldType]): void {
+        this.sort.setOption(newSortOrder);
     }
 }

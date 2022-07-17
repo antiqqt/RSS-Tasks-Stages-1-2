@@ -74,4 +74,10 @@ export default class Slider {
     public reset(): void {
         this.slider.noUiSlider?.reset();
     }
+
+    public setSavedOptions(savedRange: string[]): void {
+        const savedRangeAsNumbers = savedRange.map(Number);
+
+        this.slider.noUiSlider?.set(savedRangeAsNumbers);
+    }
 }

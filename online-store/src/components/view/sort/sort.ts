@@ -1,3 +1,5 @@
+import { SortField, SortFieldType } from '../../../types';
+
 export default class Sort {
     readonly element: HTMLElement;
     readonly selectElement: HTMLSelectElement;
@@ -46,5 +48,15 @@ export default class Sort {
         option.innerText = innerText;
         option.value = value;
         return option;
+    }
+
+    public setOption(newSortOrder: [SortField, SortFieldType]): void {
+        const [field, type] = newSortOrder;
+
+        [...this.selectElement.options].forEach((optionElem, optionIndex) => {
+            if (optionElem.value === `${field}-${type}`) {
+                this.selectElement.selectedIndex = optionIndex;
+            }
+        });
     }
 }

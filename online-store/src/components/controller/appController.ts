@@ -1,4 +1,4 @@
-import { CardData, CardsData, Errors, FilterOption, SearchQuery } from '../../types';
+import { CardData, CardsData, Errors, FilterOption, SearchQuery, SortField, SortFieldType } from '../../types';
 import Model from '../model/appModel';
 
 export default class Controller {
@@ -9,7 +9,7 @@ export default class Controller {
     }
 
     public getCardsData(): CardsData {
-        return this.model.getCurrentState();
+        return this.model.getCardsData();
     }
 
     public checkInCart(id: string): boolean {
@@ -19,26 +19,26 @@ export default class Controller {
         return data.inCart;
     }
 
-    addToCart(id: string): void {
+    public addToCart(id: string): void {
         const data = this.getCardsData().get(id);
         if (data == null) throw new Error(Errors.InvalidID);
 
         data.inCart = true;
     }
 
-    removeFromCart(id: string): void {
+    public removeFromCart(id: string): void {
         const data = this.getCardsData().get(id);
         if (data == null) throw new Error(Errors.InvalidID);
 
         data.inCart = false;
     }
 
-    getNumOfItemsInCart(): number {
+    public getNumOfItemsInCart(): number {
         const items = [...this.getCardsData().values()];
         return items.filter((item) => item.inCart).length;
     }
 
-    getFilterOptions(filterType: keyof CardData): FilterOption[] {
+    public getFilterOptions(filterType: keyof CardData): FilterOption[] {
         const options = new Set<FilterOption>();
 
         this.getCardsData().forEach((item) => options.add(item[filterType]));
@@ -46,7 +46,8 @@ export default class Controller {
         return [...options];
     }
 
-    getFilteredCardsData(query: SearchQuery): CardsData {
+    public getFilteredCardsData(query: SearchQuery): CardsData {
+        this.model.saveFilterState(query);
         const cardsDataCopy = new Map(this.getCardsData());
 
         for (const cardData of cardsDataCopy.values()) {
@@ -73,5 +74,21 @@ export default class Controller {
             if (!cardIsValid) cardsDataCopy.delete(cardData.id);
         }
         return cardsDataCopy;
+    }
+
+    public getSavedFilterState(): SearchQuery {
+        return this.model.getFilterState();
+    }
+
+    public saveSortState(sortOrder: [SortField, SortFieldType]): void {
+        return this.model.saveSortState(sortOrder);
+    }
+
+    public getSavedSortState(): [SortField, SortFieldType] {
+        return this.model.getSavedSortState();
+    }
+
+    public clearCart(): void {
+        this.model.clearCart();
     }
 }

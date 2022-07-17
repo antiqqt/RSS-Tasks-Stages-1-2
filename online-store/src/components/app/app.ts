@@ -12,23 +12,31 @@ export default class App {
     }
 
     public start(): void {
+        this.initialize();
+    }
+
+    private initialize(): void {
         this.view.drawFilter('type', this.controller.getFilterOptions('type'));
         this.view.drawFilter('color', this.controller.getFilterOptions('color'));
         this.view.drawFilter('pattern', this.controller.getFilterOptions('pattern'));
         this.view.drawFilter('manufacturer', this.controller.getFilterOptions('manufacturer'));
-
         this.view.drawSlider('quantity');
         this.view.drawSlider('year');
+        this.view.addResetFiltersBtn();
+        this.view.addResetSettingsBtn();
 
-        this.view.addResetBtn();
+        this.view.updateCartCounter(this.controller.getNumOfItemsInCart());
+        this.view.applySavedFiltersState(this.controller.getSavedFilterState());
 
-        this.view.drawCards(this.controller.getCardsData());
-        this.view.sortCards('type', 'a');
+        this.view.drawCards(this.controller.getFilteredCardsData(this.view.getFilterQuery()));
+        this.view.sortCards(this.controller.getSavedSortState());
+        this.view.setSortOption(this.controller.getSavedSortState());
 
         this.addCartHandler();
         this.addSortHandler();
         this.addFiltersHandler();
-        this.addResetHandler();
+        this.addResetFiltersHandler();
+        this.addResetSettingsHandler();
 
         const header = document.getElementById('header');
         if (header !== null) {
@@ -85,9 +93,10 @@ export default class App {
         sortSelectElement.addEventListener('change', () => {
             const options = sortSelectElement.options;
             const selectedOption = options[options.selectedIndex];
-            const [field, type] = selectedOption.value.split('-') as [SortField, SortFieldType];
+            const sortOrder = selectedOption.value.split('-') as [SortField, SortFieldType];
 
-            this.view.sortCards(field, type);
+            this.view.sortCards(sortOrder);
+            this.controller.saveSortState(sortOrder);
         });
     }
 
@@ -106,10 +115,25 @@ export default class App {
         sliders.forEach((slider) => slider.onChange(updateCars));
     }
 
-    private addResetHandler(): void {
-        this.view.addResetBtnOnClick(() => {
+    private addResetFiltersHandler(): void {
+        this.view.addResetFiltersBtnOnClick(() => {
             this.view.resetAllFilters();
+            this.view.redrawCards(this.controller.getFilteredCardsData(this.view.getFilterQuery()));
+        });
+    }
+
+    private addResetSettingsHandler(): void {
+        this.view.addResetSettingsBtnOnClick(() => {
+            localStorage.clear();
+            this.controller.clearCart();
+
+            this.view.updateCartCounter(this.controller.getNumOfItemsInCart());
             this.view.redrawCards(this.controller.getCardsData());
+
+            const defaultSortState: [SortField, SortFieldType] = ['type', 'a'];
+            this.view.sortCards(defaultSortState);
+            this.view.setSortOption(defaultSortState);
+            this.controller.saveSortState(defaultSortState);
         });
     }
 }
