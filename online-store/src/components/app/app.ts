@@ -5,6 +5,7 @@ import View from '../view/appView';
 export default class App {
     private view: View;
     private controller: Controller;
+    private boundUpdateCards = this.updateCards.bind(this);
 
     constructor() {
         this.view = new View();
@@ -12,10 +13,6 @@ export default class App {
     }
 
     public start(): void {
-        this.initialize();
-    }
-
-    private initialize(): void {
         this.view.drawFilter('type', this.controller.getFilterOptions('type'));
         this.view.drawFilter('color', this.controller.getFilterOptions('color'));
         this.view.drawFilter('pattern', this.controller.getFilterOptions('pattern'));
@@ -27,8 +24,11 @@ export default class App {
 
         this.view.updateCartCounter(this.controller.getNumOfItemsInCart());
         this.view.applySavedFiltersState(this.controller.getSavedFilterState());
+        this.view.setSearchBarValue(this.controller.getSavedSearchBarState());
 
-        this.view.drawCards(this.controller.getFilteredCardsData(this.view.getFilterQuery()));
+        this.view.drawCards(
+            this.controller.getFilteredCardsData(this.view.getFilterQuery(), this.view.getSearchBarQuery())
+        );
         this.view.sortCards(this.controller.getSavedSortState());
         this.view.setSortOption(this.controller.getSavedSortState());
 
@@ -37,6 +37,7 @@ export default class App {
         this.addFiltersHandler();
         this.addResetFiltersHandler();
         this.addResetSettingsHandler();
+        this.addSearchBarHandler();
 
         const header = document.getElementById('header');
         if (header !== null) {
@@ -104,36 +105,45 @@ export default class App {
         const filters = this.view.getFiltersContainer();
         const sliders = this.view.getSliders();
 
-        const updateCars = (): void => {
-            const query = this.view.getFilterQuery();
-            const validCardsData = this.controller.getFilteredCardsData(query);
-            this.view.redrawCards(validCardsData);
-        };
-
-        filters.addEventListener('change', updateCars);
-
-        sliders.forEach((slider) => slider.onChange(updateCars));
+        filters.addEventListener('change', this.boundUpdateCards);
+        sliders.forEach((slider) => slider.onChange(this.boundUpdateCards));
     }
 
     private addResetFiltersHandler(): void {
         this.view.addResetFiltersBtnOnClick(() => {
             this.view.resetAllFilters();
-            this.view.redrawCards(this.controller.getFilteredCardsData(this.view.getFilterQuery()));
+            this.updateCards();
         });
     }
 
     private addResetSettingsHandler(): void {
         this.view.addResetSettingsBtnOnClick(() => {
-            localStorage.clear();
-            this.controller.clearCart();
+            localStorage.removeItem('antiqqt-store-state');
 
+            this.controller.clearCart();
             this.view.updateCartCounter(this.controller.getNumOfItemsInCart());
-            this.view.redrawCards(this.controller.getCardsData());
+
+            this.view.resetAllFilters();
+            this.updateCards();
 
             const defaultSortState: [SortField, SortFieldType] = ['type', 'a'];
             this.view.sortCards(defaultSortState);
             this.view.setSortOption(defaultSortState);
             this.controller.saveSortState(defaultSortState);
         });
+    }
+
+    private addSearchBarHandler(): void {
+        this.view.addSearchBarOnInput(this.boundUpdateCards);
+        this.view.addSearchBarOnClear(this.boundUpdateCards);
+    }
+
+    private updateCards(): void {
+        const searchBarQuery = this.view.getSearchBarQuery();
+        const filterQuery = this.view.getFilterQuery();
+        const filteredData = this.controller.getFilteredCardsData(filterQuery, searchBarQuery);
+
+        this.controller.saveSearchBarState(searchBarQuery);
+        this.view.redrawCards(filteredData);
     }
 }

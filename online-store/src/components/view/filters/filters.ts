@@ -2,17 +2,20 @@ import { CardData, FilterOption, SearchQuery } from '../../../types';
 import { Filter } from './filter/filter';
 import Slider from './slider/slider';
 import ResetBtn from './resetBtn/resetBtn';
+import Search from './search/search';
 
 export default class Filters {
     readonly element: HTMLDivElement;
     private filters: (Filter | Slider)[];
     private resetFiltersBtn: ResetBtn;
     private resetSettingsBtn: ResetBtn;
+    private searchBar: Search;
 
     constructor() {
         this.filters = [];
         this.resetFiltersBtn = new ResetBtn('Reset filters');
-        this.resetSettingsBtn = new ResetBtn('Reset settings');
+        this.resetSettingsBtn = new ResetBtn('Reset all settings');
+        this.searchBar = new Search();
 
         this.element = document.createElement('div');
         this.constructOwnElement();
@@ -20,6 +23,7 @@ export default class Filters {
         const header = document.createElement('h3');
         header.innerText = 'Filters';
         header.classList.add(
+            'pb-1',
             'font-medium',
             'text-xl',
             'text-neutral-600',
@@ -29,6 +33,7 @@ export default class Filters {
         );
 
         this.element.append(header);
+        this.element.append(this.searchBar.element);
     }
 
     private constructOwnElement(): void {
@@ -52,7 +57,7 @@ export default class Filters {
         this.filters.push(newSlider);
     }
 
-    public getQuery(): SearchQuery {
+    public getFilterQuery(): SearchQuery {
         const query: SearchQuery = new Map();
         return this.filters.reduce((query, filter) => query.set(filter.type, filter.getChosenOptions()), query);
     }
@@ -83,6 +88,7 @@ export default class Filters {
 
     public resetAll(): void {
         this.filters.forEach((filter) => filter.reset());
+        this.searchBar.reset();
     }
 
     public applySavedState(savedQuery: SearchQuery): void {
@@ -93,5 +99,28 @@ export default class Filters {
 
             filter.setSavedOptions(savedState);
         }
+    }
+
+    public getSearchBarQuery(): string | null {
+        const searchBarInput = this.searchBar.input.value;
+
+        return searchBarInput.length > 0 ? searchBarInput : null;
+    }
+
+    public setSearchBarValue(savedVal: string | null): void {
+        if (savedVal == null) {
+            this.searchBar.input.value = '';
+        } else {
+            this.searchBar.input.value = savedVal;
+            this.searchBar.showClearBtn();
+        }
+    }
+
+    public addSearchBarOnInput(cb: () => void): void {
+        this.searchBar.input.addEventListener('input', cb);
+    }
+
+    public addSearchBarOnClear(cb: () => void): void {
+        this.searchBar.clearBtn.addEventListener('click', cb);
     }
 }

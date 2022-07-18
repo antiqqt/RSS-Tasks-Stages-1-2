@@ -15,20 +15,38 @@ export default class Sort {
     private constructElement(): void {
         const header = document.createElement('h3');
         header.innerText = 'sort by';
-        header.classList.add('mb-4', 'font-medium', 'text-xl', 'text-neutral-600', 'capitalize');
+        header.classList.add(
+            'mb-4',
+            'pb-1',
+            'font-medium',
+            'text-xl',
+            'text-neutral-600',
+            'capitalize',
+            'border-b-2',
+            'border-blue-400'
+        );
 
         this.element.append(header);
     }
 
     private constructSelect(): void {
         this.selectElement.classList.add(
-            'min-w-[10.5rem]',
+            'min-w-full',
             'px-2',
             'py-1',
             'rounded-md',
             'bg-gray-200',
             'capitalize',
-            'cursor-pointer'
+            'cursor-pointer',
+            'font-medium',
+            'text-gray-500',
+            'border-2',
+            'border-transparent',
+            'rounded',
+            'transition-colors',
+            'cursor-pointer',
+            'focus:outline-none',
+            'focus:border-gray-400'
         );
 
         this.selectElement.name = 'sort';

@@ -59,7 +59,7 @@ export default class View {
     }
 
     public getFilterQuery(): SearchQuery {
-        return this.filters.getQuery();
+        return this.filters.getFilterQuery();
     }
 
     public redrawCards(data: CardsData): void {
@@ -100,5 +100,21 @@ export default class View {
 
     public setSortOption(newSortOrder: [SortField, SortFieldType]): void {
         this.sort.setOption(newSortOrder);
+    }
+
+    public getSearchBarQuery(): string | null {
+        return this.filters.getSearchBarQuery();
+    }
+
+    public setSearchBarValue(savedVal: string | null): void {
+        this.filters.setSearchBarValue(savedVal);
+    }
+
+    public addSearchBarOnInput(cb: () => void): void {
+        this.filters.addSearchBarOnInput(cb);
+    }
+
+    public addSearchBarOnClear(cb: () => void): void {
+        this.filters.addSearchBarOnClear(cb);
     }
 }

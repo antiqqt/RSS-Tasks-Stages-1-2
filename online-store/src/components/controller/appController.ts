@@ -46,16 +46,27 @@ export default class Controller {
         return [...options];
     }
 
-    public getFilteredCardsData(query: SearchQuery): CardsData {
-        this.model.saveFilterState(query);
+    public getFilteredCardsData(filterQuery: SearchQuery, searchBarQuery: string | null): CardsData {
+        this.model.saveFilterState(filterQuery);
         const cardsDataCopy = new Map(this.getCardsData());
 
         for (const cardData of cardsDataCopy.values()) {
             let cardIsValid = true;
 
-            for (const key of query.keys()) {
+            if (searchBarQuery != null) {
+                cardIsValid = (Object.entries(cardData) as Array<[keyof CardData, CardData[keyof CardData]]>).some(
+                    ([key, cardVal]) => {
+                        if (['id', 'imageLink'].includes(key)) return false;
+                        if (typeof cardVal === 'boolean') return false;
+
+                        return cardVal.includes(searchBarQuery.toLowerCase());
+                    }
+                );
+            }
+
+            for (const key of filterQuery.keys()) {
                 let fieldIsValid: boolean;
-                const searchedValues = query.get(key) || [];
+                const searchedValues = filterQuery.get(key) || [];
 
                 const filterIsBlank = searchedValues.length === 0;
                 if (filterIsBlank) continue;
@@ -90,5 +101,13 @@ export default class Controller {
 
     public clearCart(): void {
         this.model.clearCart();
+    }
+
+    public saveSearchBarState(currentSearchState: string | null): void {
+        this.model.saveSearchState(currentSearchState);
+    }
+
+    public getSavedSearchBarState(): string | null {
+        return this.model.getSavedSearchState();
     }
 }

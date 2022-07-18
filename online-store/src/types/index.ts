@@ -36,4 +36,5 @@ export interface LocalData {
     sortState: [SortField, SortFieldType];
     filterState: FilterStateAsObj;
     cardsState: CardsDataAsObj;
+    searchState: string | null;
 }
