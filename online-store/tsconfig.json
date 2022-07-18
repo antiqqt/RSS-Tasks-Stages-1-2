@@ -10,6 +10,6 @@
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true
     },
-    "include": ["./src/**/*"],
+    "include": ["./src/**/*", "./jest-setup.ts"],
     "exclude": ["./dist"]
 }

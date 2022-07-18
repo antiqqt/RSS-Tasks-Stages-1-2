@@ -1,6 +1,6 @@
 import { CardData, FilterOption } from '../../../../types';
 
-export class Filter {
+export default class Filter {
     readonly element: HTMLElement;
     private listElement: HTMLUListElement;
     readonly type: keyof CardData;
@@ -131,7 +131,6 @@ export class Filter {
         this.checkboxes.forEach((checkbox) => {
             const checkboxOptionName = checkbox.dataset.optionName;
             if (checkboxOptionName && savedOptions.includes(checkboxOptionName)) {
-                console.log(savedOptions);
                 checkbox.checked = true;
                 checkbox.classList.add('checked');
                 this.chosenOptions.add(checkboxOptionName);
