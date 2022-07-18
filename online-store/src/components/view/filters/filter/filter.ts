@@ -1,17 +1,19 @@
-import { CardData, FilterOption } from '../../../types';
+import { CardData, FilterOption } from '../../../../types';
 
 export class Filter {
     readonly element: HTMLElement;
     private listElement: HTMLUListElement;
     readonly type: keyof CardData;
     private chosenOptions: Set<string>;
+    private checkboxes: HTMLInputElement[];
 
     constructor(type: keyof CardData, options: FilterOption[]) {
         this.type = type;
         this.chosenOptions = new Set();
+        this.checkboxes = [];
 
         this.element = document.createElement('div');
-        this.constructElement(type);
+        this.constructOwnElement(type);
 
         this.listElement = document.createElement('ul');
         this.constructOptionList(type, options);
@@ -35,7 +37,7 @@ export class Filter {
         }
     }
 
-    private constructElement(type: string): void {
+    private constructOwnElement(type: string): void {
         const header = document.createElement('h4');
         header.innerText = type;
         header.classList.add('mb-2', 'font-medium', 'text-md', 'text-neutral-600', 'capitalize');
@@ -63,8 +65,11 @@ export class Filter {
 
             wrapperElem.classList.add('flex', 'items-center', 'p-1', 'rounded', 'hover:bg-gray-100');
 
+            checkboxElem.dataset.optionName = String(option);
+            this.checkboxes.push(checkboxElem);
+
             const idFromOption = String(option).split(' ').join('-');
-            checkboxElem.id = `filter-${type}-${idFromOption}`;
+            checkboxElem.id = `checkbox-${type}-${idFromOption}`;
             checkboxElem.type = 'checkbox';
             checkboxElem.value = '';
             checkboxElem.classList.add(
@@ -113,5 +118,24 @@ export class Filter {
 
     public getChosenOptions(): string[] {
         return [...this.chosenOptions];
+    }
+
+    public reset(): void {
+        this.chosenOptions.clear();
+
+        const checkboxes = this.listElement.querySelectorAll<HTMLInputElement>('input[type=checkbox]');
+        checkboxes.forEach((checkbox) => (checkbox.checked = false));
+    }
+
+    public setSavedOptions(savedOptions: string[]): void {
+        this.checkboxes.forEach((checkbox) => {
+            const checkboxOptionName = checkbox.dataset.optionName;
+            if (checkboxOptionName && savedOptions.includes(checkboxOptionName)) {
+                console.log(savedOptions);
+                checkbox.checked = true;
+                checkbox.classList.add('checked');
+                this.chosenOptions.add(checkboxOptionName);
+            }
+        });
     }
 }

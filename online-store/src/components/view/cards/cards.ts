@@ -2,13 +2,11 @@ import { CardData, CardsData, SortField, SortFieldType } from '../../../types';
 
 export default class Cards {
     readonly containerElem;
-    private sortOrder: [SortField, SortFieldType];
+    private sortOrder: [SortField, SortFieldType] = ['type', 'a'];
     private cardsElem: HTMLDivElement;
     private noResultsElem: HTMLDivElement;
 
-    constructor(sortOrder: [SortField, SortFieldType] = ['type', 'a']) {
-        this.sortOrder = sortOrder;
-
+    constructor() {
         this.containerElem = document.createElement('section');
         this.constructContainer();
 
@@ -75,6 +73,7 @@ export default class Cards {
                 const cardImg = document.createElement('img');
                 const cardInfo = document.createElement('figcaption');
 
+                if (cardData.inCart) cardWrapper.classList.add('isInCart');
                 cardWrapper.classList.add('relative', 'h-48', 'w-44', 'overflow-hidden', 'lg:w-52', 'xl:w-60');
                 card.classList.add(
                     'h-96',
@@ -88,9 +87,9 @@ export default class Cards {
                 cardInfo.classList.add('flex', 'flex-col', 'justify-evenly', 'text-center', 'h-1/2');
 
                 card.dataset.id = cardData.id;
-                card.dataset.inCart = String(cardData.inCart);
                 cardImg.src = `${cardData.imageLink}.webp`;
                 cardImg.alt = cardData.type;
+                card.dataset.inCart = String(cardData.inCart);
 
                 const cardFields: Map<string, CardData[keyof CardData]> = new Map(Object.entries(cardData));
 
@@ -122,13 +121,14 @@ export default class Cards {
         }
     }
 
-    public sort(field: SortField, type: SortFieldType): void {
+    public sort(sortOrder: [SortField, SortFieldType]): void {
+        this.sortOrder = sortOrder;
+        const [field, type] = sortOrder;
         const sortedCards = [...this.cardsElem.children];
-        this.sortOrder = [field, type];
 
         sortedCards.sort((a, b) => {
-            const aFieldElem = a.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
-            const bFieldElem = b.querySelector<HTMLParagraphElement>(`[data-field=${field}]`);
+            const aFieldElem = a.querySelector(`[data-field=${field}]`) as HTMLParagraphElement;
+            const bFieldElem = b.querySelector(`[data-field=${field}]`) as HTMLParagraphElement;
             if (aFieldElem == null) return 0;
             if (bFieldElem == null) return 0;
 
@@ -163,6 +163,6 @@ export default class Cards {
 
         this.hideNoResultsElem();
         this.draw(data);
-        this.sort(...this.sortOrder);
+        this.sort(this.sortOrder);
     }
 }

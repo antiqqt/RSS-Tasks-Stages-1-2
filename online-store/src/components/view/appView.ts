@@ -2,6 +2,7 @@ import { CardData, CardsData, FilterOption, SearchQuery, SortField, SortFieldTyp
 import Cards from './cards/cards';
 import Cart from './cart/cart';
 import Filters from './filters/filters';
+import Slider from './filters/slider/slider';
 import Sort from './sort/sort';
 
 export default class View {
@@ -17,8 +18,8 @@ export default class View {
         this.filters = new Filters();
     }
 
-    public sortCards(field: SortField, type: SortFieldType): void {
-        this.cards.sort(field, type);
+    public sortCards(sortOrder: [SortField, SortFieldType]): void {
+        this.cards.sort(sortOrder);
     }
 
     public drawCards(data: CardsData): void {
@@ -58,10 +59,62 @@ export default class View {
     }
 
     public getFilterQuery(): SearchQuery {
-        return this.filters.getQuery();
+        return this.filters.getFilterQuery();
     }
 
     public redrawCards(data: CardsData): void {
         this.cards.redraw(data);
+    }
+
+    public drawSlider(type: 'quantity' | 'year'): void {
+        this.filters.addSlider(type);
+    }
+
+    public getSliders(): Slider[] {
+        return this.filters.getSliders();
+    }
+
+    public addResetFiltersBtn(): void {
+        this.filters.addResetBtn('filters');
+    }
+
+    public addResetSettingsBtn(): void {
+        this.filters.addResetBtn('settings');
+    }
+
+    public addResetFiltersBtnOnClick(callback: () => void): void {
+        this.filters.addResetBtnOnClick('filters', callback);
+    }
+
+    public addResetSettingsBtnOnClick(callback: () => void): void {
+        this.filters.addResetBtnOnClick('settings', callback);
+    }
+
+    public resetAllFilters(): void {
+        this.filters.resetAll();
+    }
+
+    public applySavedFiltersState(query: SearchQuery): void {
+        this.filters.applySavedState(query);
+    }
+
+    public setSortOption(newSortOrder: [SortField, SortFieldType]): void {
+        this.sort.setOption(newSortOrder);
+    }
+
+    public getSearchBarQuery(): string | null {
+        return this.filters.getSearchBarQuery();
+    }
+
+    public setSearchBarValue(savedVal: string | null): void {
+        this.filters.setSearchBarValue(savedVal);
+    }
+
+    public addSearchBarOnInput(cb: () => void): void {
+        this.filters.addSearchBarOnInput(cb);
+    }
+
+    public addSearchBarOnClear(cb: () => void): void {
+        this.filters.addSearchBarOnClear(cb);
     }
 }
