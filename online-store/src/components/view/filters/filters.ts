@@ -1,5 +1,5 @@
 import { CardData, FilterOption, SearchQuery } from '../../../types';
-import { Filter } from './filter/filter';
+import Filter from './filter/filter';
 import Slider from './slider/slider';
 import ResetBtn from './resetBtn/resetBtn';
 import Search from './search/search';
