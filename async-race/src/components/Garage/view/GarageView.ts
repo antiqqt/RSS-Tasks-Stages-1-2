@@ -8,6 +8,7 @@ import {
   CarsData,
   CreateCarCallback,
   DeleteCarCallback,
+  GenerateCarsCallback,
   SelectCarCallback,
   SwitchPageCallback,
   UpdateCarCallback,
@@ -24,7 +25,8 @@ export default class GarageView extends BaseComponent {
     private onSelectCar: SelectCarCallback,
     private onUpdateCar: UpdateCarCallback,
     private onDeleteCar: DeleteCarCallback,
-    private onSwitchPage: SwitchPageCallback
+    private onSwitchPage: SwitchPageCallback,
+    private onGenerateCars: GenerateCarsCallback
   ) {
     super('main');
     this.setClass('flex flex-col min-h-screen px-3 text-slate-300 bg-slate-700');
@@ -83,7 +85,10 @@ export default class GarageView extends BaseComponent {
 
     new Button('race', 'light').attachTo(container);
     new Button('reset', 'light').attachTo(container);
-    new Button('generate cars', 'dark').setClass('col-start-4 col-span-2').attachTo(container);
+    new Button('generate cars', 'dark')
+      .setClass('col-start-4 col-span-2')
+      .attachTo(container)
+      .setHandler('click', () => this.onGenerateCars());
 
     return container;
   }

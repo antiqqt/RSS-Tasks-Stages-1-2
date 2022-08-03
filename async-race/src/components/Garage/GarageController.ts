@@ -2,6 +2,7 @@ import BaseComponent from '../common/BaseComponent/BaseComponent';
 import GarageModel from './GarageModel';
 import GarageView from './view/GarageView';
 import { NewCarData, SwitchPageDirections } from './types';
+import generateCarData from '../common/utils/generateCarData';
 
 export default class GarageController {
   private view: GarageView;
@@ -16,7 +17,8 @@ export default class GarageController {
       this.selectCarCallback,
       this.updateCarCallback,
       this.deleteCarCallback,
-      this.switchPageCallback
+      this.switchPageCallback,
+      this.generateCarsCallback
     ).attachTo(container);
 
     this.start();
@@ -60,6 +62,16 @@ export default class GarageController {
 
   private deleteCarCallback = (id: number): void => {
     this.model.deleteCar(id).then(() => this.renderPage());
+  };
+
+  private generateCarsCallback = (numberOfNewCars = 100): void => {
+    const randomCarsData = new Array(numberOfNewCars).fill('').map(() => {
+      const newCarData = generateCarData();
+
+      return this.model.createCar(newCarData);
+    });
+
+    Promise.all(randomCarsData).then(() => this.renderPage());
   };
 
   private switchPageCallback = (direction: SwitchPageDirections): Promise<number> =>
