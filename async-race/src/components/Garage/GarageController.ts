@@ -23,12 +23,28 @@ export default class GarageController {
   }
 
   private renderPage(): void {
-    this.model.getCars().then((data) => this.view.renderPage(data));
-  }
+    this.model.getCars().then((carsData) => {
+      this.view.renderPage(carsData);
 
-  private createCarCallback = (data: NewCarData): void => {
-    this.model.createCar(data).then(() => this.renderPage());
-  };
+      const CARS_PER_PAGE = 7;
+      const MIN_PAGE_INDEX = 1;
+
+      const nextPageExists = Number(carsData.count) > this.model.getCurrentPage() * CARS_PER_PAGE;
+      const prevPageExists = this.model.getCurrentPage() > MIN_PAGE_INDEX;
+
+      if (nextPageExists) {
+        this.view.enableNextPageBtn();
+      } else {
+        this.view.disableNextPageBtn();
+      }
+
+      if (prevPageExists) {
+        this.view.enablePrevPageBtn();
+      } else {
+        this.view.disablePrevPageBtn();
+      }
+    });
+  }
 
   private selectCarCallback = (id: number): void => {
     this.model.getCar(id).then((data) => this.view.openСarUpdate(data));
@@ -38,15 +54,16 @@ export default class GarageController {
     this.model.updateCar(id, body).then(() => this.renderPage());
   };
 
+  private createCarCallback = (data: NewCarData): void => {
+    this.model.createCar(data).then(() => this.renderPage());
+  };
+
   private deleteCarCallback = (id: number): void => {
     this.model.deleteCar(id).then(() => this.renderPage());
   };
 
-  private switchPageCallback = (direction: SwitchPageDirections): Promise<[number, number]> =>
-    this.model
-      .switchCurrentPage(direction)
-      .then((indexes) => indexes)
-      .finally(() => this.renderPage());
+  private switchPageCallback = (direction: SwitchPageDirections): Promise<number> =>
+    this.model.switchCurrentPage(direction).finally(() => this.renderPage());
 
   start(): void {
     this.renderPage();

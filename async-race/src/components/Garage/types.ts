@@ -30,7 +30,7 @@ export type UpdateCarCallback = (id: number, body: NewCarData) => void;
 
 export type DeleteCarCallback = (id: number) => void;
 
-export type SwitchPageCallback = (direction: SwitchPageDirections) => Promise<[number, number]>;
+export type SwitchPageCallback = (direction: SwitchPageDirections) => Promise<number>;
 
 export enum SwitchPageDirections {
   PREV = 'prev',

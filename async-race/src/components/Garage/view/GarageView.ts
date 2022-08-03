@@ -12,14 +12,10 @@ import {
   SwitchPageCallback,
   UpdateCarCallback,
 } from '../types';
-import PageControls from './PageControls/PageControls';
+import Pagination from './Pagination/Pagination';
 
 export default class GarageView extends BaseComponent {
-  private garageCounter: BaseComponent;
-
-  private pageControls: BaseComponent;
-
-  private currentPage: BaseComponent;
+  private pagination: Pagination;
 
   private carUpdateField: CarUpdate;
 
@@ -34,15 +30,12 @@ export default class GarageView extends BaseComponent {
     this.setClass('flex flex-col min-h-screen px-3 text-slate-300 bg-slate-700');
 
     this.carUpdateField = new CarUpdate(this.onUpdateCar);
-    this.garageCounter = new BaseComponent('p');
-    this.pageControls = new PageControls(this.onSwitchPage);
-    this.currentPage = new BaseComponent('div').setClass('flex-grow flex flex-col gap-y-6 pt-4 pb-6');
+    this.pagination = new Pagination(this.onSwitchPage, this.onSelectCar, this.onDeleteCar);
 
     this.renderHeader();
     this.renderRoutingBtns();
     this.renderGeneralSettings();
-    this.renderPaginationSettings();
-    this.currentPage.attachTo(this);
+    this.pagination.attachTo(this);
   }
 
   private renderHeader(): void {
@@ -95,81 +88,27 @@ export default class GarageView extends BaseComponent {
     return container;
   }
 
-  private renderPaginationSettings(): void {
-    const container = new BaseComponent('div').setClass('flex flex-col gap-y-2 pt-8').attachTo(this);
-
-    this.garageCounter.setClass(['font-bold', 'text-2xl', 'capitalize']).attachTo(container);
-    this.pageControls.attachTo(container);
-  }
-
-  private renderCarTrack({ name, color, id }: CarData): void {
-    const container = new BaseComponent('div').setClass('flex flex-col gap-y-3').attachTo(this.currentPage);
-
-    this.createTrackControls(name, id).attachTo(container);
-    this.createCarTrack(color).attachTo(this.createEngineControls().attachTo(container));
-  }
-
-  private createTrackControls(carName: string, carID: number): BaseComponent {
-    const container = new BaseComponent('div').setClass('flex gap-x-2');
-
-    new Button('select', 'light').setHandler('click', () => this.onSelectCar(carID)).attachTo(container);
-
-    new Button('remove', 'light').setHandler('click', () => this.onDeleteCar(carID)).attachTo(container);
-
-    new BaseComponent('div').setClass('ml-2 font-semibold text-md').setInnerText(carName).attachTo(container);
-
-    return container;
-  }
-
-  private createEngineControls(): BaseComponent {
-    const container = new BaseComponent('div').setClass('flex items-center gap-x-2');
-
-    new Button('A', 'dark')
-      .removeClass('bg-indigo-200 w-max')
-      .setClass('w-6 h-6 bg-emerald-200 rounded-full')
-      .attachTo(container);
-
-    new Button('B', 'dark')
-      .removeClass('bg-indigo-200 w-max')
-      .setClass('w-6 h-6 bg-emerald-200 rounded-full')
-      .attachTo(container);
-
-    return container;
-  }
-
-  private createCarTrack(color: string): BaseComponent {
-    const container = new BaseComponent('div').setClass('relative flex-grow flex ml-3 pl-3 bg-slate-400 rounded');
-
-    new BaseComponent('div')
-      .setClass('w-8 h-8')
-      .setInnerHTML(
-        ` <svg class="w-full h-full rotate-90" style="fill: ${color};">
-          <use xlink:href="#car-top-view"></use>
-        </svg>`
-      )
-      .attachTo(container);
-
-    new BaseComponent('div')
-      .setClass('absolute right-12 w-8 h-8')
-      .setInnerHTML(
-        ` <svg class="w-full h-full stroke-indigo-100 fill-indigo-100 rotate-90">
-          <use xlink:href="#finish-line"></use>
-        </svg>`
-      )
-      .attachTo(container);
-
-    return container;
-  }
-
-  renderPage({ items, count }: CarsData): void {
-    console.log(items, count);
-
-    this.currentPage.clearInnerHTML();
-    this.garageCounter.setInnerText(`Garage (${count})`);
-    items.forEach((carData) => this.renderCarTrack(carData));
+  renderPage(data: CarsData): void {
+    this.pagination.renderPage(data);
   }
 
   openСarUpdate(data: CarData): void {
     this.carUpdateField.open(data);
+  }
+
+  disableNextPageBtn(): void {
+    this.pagination.disableNextBtn();
+  }
+
+  enableNextPageBtn(): void {
+    this.pagination.enableNextBtn();
+  }
+
+  disablePrevPageBtn(): void {
+    this.pagination.disablePrevBtn();
+  }
+
+  enablePrevPageBtn(): void {
+    this.pagination.enablePrevBtn();
   }
 }

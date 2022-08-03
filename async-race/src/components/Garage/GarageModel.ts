@@ -17,8 +17,8 @@ export default class GarageModel {
 
   async getCars(): Promise<CarsData> {
     try {
-      const carsPerPage = 7;
-      const response = await fetch(`${this.garagePath}?_page=${this.currentPage}&_limit=${carsPerPage}`);
+      const CARS_PER_PAGE = 7;
+      const response = await fetch(`${this.garagePath}?_page=${this.currentPage}&_limit=${CARS_PER_PAGE}`);
       if (!response.ok) throw new Error('Fetch request failed');
 
       const count = response.headers.get('X-Total-Count');
@@ -142,20 +142,22 @@ export default class GarageModel {
     }
   }
 
-  async switchCurrentPage(direction: SwitchPageDirections): Promise<[number, number]> {
+  async switchCurrentPage(direction: SwitchPageDirections): Promise<number> {
     const currCarsCount = await this.getCarsCount();
     const lastPageIndex = Math.ceil(currCarsCount / 7);
-    const currPageIndex = this.currentPage;
 
     if (direction === SwitchPageDirections.NEXT) {
-      this.currentPage = currPageIndex === lastPageIndex ? lastPageIndex : currPageIndex + 1;
-      console.log('hey2', this.currentPage);
+      this.currentPage = this.currentPage === lastPageIndex ? lastPageIndex : this.currentPage + 1;
     }
 
     if (direction === SwitchPageDirections.PREV) {
-      this.currentPage = currPageIndex === 1 ? 1 : currPageIndex - 1;
+      this.currentPage = this.currentPage === 1 ? 1 : this.currentPage - 1;
     }
 
-    return [this.currentPage, lastPageIndex];
+    return this.currentPage;
+  }
+
+  getCurrentPage(): number {
+    return this.currentPage;
   }
 }
