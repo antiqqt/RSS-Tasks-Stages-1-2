@@ -18,7 +18,8 @@ export default class GarageController {
       this.updateCarCallback,
       this.deleteCarCallback,
       this.switchPageCallback,
-      this.generateCarsCallback
+      this.generateCarsCallback,
+      this.driveCarCallback
     ).attachTo(container);
 
     this.start();
@@ -72,6 +73,18 @@ export default class GarageController {
     });
 
     Promise.all(randomCarsData).then(() => this.renderPage());
+  };
+
+  private driveCarCallback = (id: number): void => {
+    this.model.startEngine(id).then((data) => {
+      const duration = data.distance / data.velocity;
+
+      this.view.driveCar(id, duration);
+
+      this.model.switchEngine(id).then((response) => {
+        if (!response.success) this.view.stopCar(id);
+      });
+    });
   };
 
   private switchPageCallback = (direction: SwitchPageDirections): Promise<number> =>

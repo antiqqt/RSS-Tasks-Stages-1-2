@@ -53,4 +53,11 @@ export default class BaseComponent {
     this.element.innerHTML = '';
     return this;
   }
+
+  animate(
+    keyframes: Keyframe[] | PropertyIndexedKeyframes | null,
+    options?: number | KeyframeAnimationOptions
+  ): Animation {
+    return this.element.animate(keyframes, options);
+  }
 }

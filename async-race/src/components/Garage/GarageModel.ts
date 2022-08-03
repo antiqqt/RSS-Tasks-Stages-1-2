@@ -129,17 +129,11 @@ export default class GarageModel {
   }
 
   async switchEngine(id: number): Promise<SwitchEngineResponse> {
-    try {
-      const response = await fetch(`${this.enginePath}?id=${id}&status=drive`, {
-        method: 'PATCH',
-      });
-      if (!response.ok) throw new Error('Fetch request failed');
+    const response = await fetch(`${this.enginePath}?id=${id}&status=drive`, {
+      method: 'PATCH',
+    });
 
-      return response.status !== 200 ? { success: false } : { ...(await response.json()) };
-    } catch (error) {
-      console.error(error);
-      throw new Error('switchEngine request failed');
-    }
+    return response.status !== 200 ? { success: false } : { ...(await response.json()) };
   }
 
   async switchCurrentPage(direction: SwitchPageDirections): Promise<number> {

@@ -8,6 +8,7 @@ import {
   CarsData,
   CreateCarCallback,
   DeleteCarCallback,
+  DriveCarCallback,
   GenerateCarsCallback,
   SelectCarCallback,
   SwitchPageCallback,
@@ -26,13 +27,14 @@ export default class GarageView extends BaseComponent {
     private onUpdateCar: UpdateCarCallback,
     private onDeleteCar: DeleteCarCallback,
     private onSwitchPage: SwitchPageCallback,
-    private onGenerateCars: GenerateCarsCallback
+    private onGenerateCars: GenerateCarsCallback,
+    private onDriveCar: DriveCarCallback
   ) {
     super('main');
-    this.setClass('flex flex-col min-h-screen px-3 text-slate-300 bg-slate-700');
+    this.setClass('flex flex-col xl:items-center xl:min-w-full min-h-screen px-3 text-slate-300 bg-slate-700');
 
     this.carUpdateField = new CarUpdate(this.onUpdateCar);
-    this.pagination = new Pagination(this.onSwitchPage, this.onSelectCar, this.onDeleteCar);
+    this.pagination = new Pagination(this.onSwitchPage, this.onSelectCar, this.onDeleteCar, this.onDriveCar);
 
     this.renderHeader();
     this.renderRoutingBtns();
@@ -115,5 +117,19 @@ export default class GarageView extends BaseComponent {
 
   enablePrevPageBtn(): void {
     this.pagination.enablePrevBtn();
+  }
+
+  driveCar(id: number, duration: number): void {
+    const car = this.pagination.getCarTracks().get(id);
+    if (!car) throw new Error(`No car with this id: ${id}`);
+
+    car.drive(duration);
+  }
+
+  stopCar(id: number): void {
+    const car = this.pagination.getCarTracks().get(id);
+    if (!car) throw new Error(`No car with this id: ${id}`);
+
+    car.stop();
   }
 }
