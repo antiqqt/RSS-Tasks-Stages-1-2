@@ -34,7 +34,13 @@ export type SwitchPageCallback = (direction: SwitchPageDirections) => Promise<nu
 
 export type GenerateCarsCallback = (numberOfNewCars?: number) => void;
 
-export type DriveCarCallback = (id: number) => void;
+export type DriveCarCallback = (id: number, name: string) => Promise<WinMessageData>;
+
+export type StopCarCallback = (id: number) => void;
+
+export type RaceCallback = () => void;
+
+export type WinMessageData = [string, number];
 
 export enum SwitchPageDirections {
   PREV = 'prev',

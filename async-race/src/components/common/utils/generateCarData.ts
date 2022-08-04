@@ -167,8 +167,6 @@ const getRandomName = (): string =>
   `${CAR_BRANDS[gerRandomNumber(CAR_BRANDS.length)]} ${CAR_MODELS[gerRandomNumber(CAR_MODELS.length)]}`;
 
 export default function generateCarData(): NewCarData {
-  console.log(getRandomColor());
-
   return {
     name: getRandomName(),
     color: `#${getRandomColor()}`,

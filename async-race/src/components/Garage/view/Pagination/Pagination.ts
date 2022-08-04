@@ -5,6 +5,7 @@ import {
   DeleteCarCallback,
   DriveCarCallback,
   SelectCarCallback,
+  StopCarCallback,
   SwitchPageCallback,
   SwitchPageDirections,
 } from '../../types';
@@ -27,7 +28,8 @@ export default class Pagination extends BaseComponent {
     private onSwitchPage: SwitchPageCallback,
     private onSelectCar: SelectCarCallback,
     private onDeleteCar: DeleteCarCallback,
-    private onDriveCar: DriveCarCallback
+    private onDriveCar: DriveCarCallback,
+    private onStopCar: StopCarCallback
   ) {
     super('div');
     this.setClass('flex flex-col xl:w-5/6 gap-y-2 pt-8');
@@ -78,7 +80,7 @@ export default class Pagination extends BaseComponent {
     this.carTracks.clear();
 
     items.forEach((carData) => {
-      const newTrack = new CarTrack(carData, this.onSelectCar, this.onDeleteCar, this.onDriveCar);
+      const newTrack = new CarTrack(carData, this.onSelectCar, this.onDeleteCar, this.onDriveCar, this.onStopCar);
 
       this.carTracks.set(newTrack.carData.id, newTrack);
       newTrack.attachTo(this.pageElement);

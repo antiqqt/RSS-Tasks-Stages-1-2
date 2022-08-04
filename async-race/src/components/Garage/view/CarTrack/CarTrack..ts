@@ -1,6 +1,13 @@
 import BaseComponent from '../../../common/BaseComponent/BaseComponent';
 import Button from '../../../common/Button/Button';
-import { CarData, DeleteCarCallback, DriveCarCallback, SelectCarCallback } from '../../types';
+import {
+  CarData,
+  DeleteCarCallback,
+  DriveCarCallback,
+  SelectCarCallback,
+  StopCarCallback,
+  WinMessageData,
+} from '../../types';
 
 const keyframe = [{ left: '2%' }, { left: '91%' }];
 
@@ -22,7 +29,8 @@ export default class CarTrack extends BaseComponent {
     public carData: CarData,
     private onSelectCar: SelectCarCallback,
     private onDeleteCar: DeleteCarCallback,
-    private onDriveCar: DriveCarCallback
+    private onDriveCar: DriveCarCallback,
+    private onStopCar: StopCarCallback
   ) {
     super('div');
     this.setClass('flex flex-col gap-y-3');
@@ -56,16 +64,22 @@ export default class CarTrack extends BaseComponent {
       .setClass('w-6 h-6 bg-emerald-200 rounded-full')
       .setHandler('click', () => {
         if (this.driveBtn.getStatus() === 'disabled') return;
-        this.driveBtn.disable();
 
-        this.onDriveCar(this.carData.id);
+        this.driveModeOn();
+        this.onDriveCar(this.carData.id, this.carData.name);
       });
 
     this.stopBtn
       .attachTo(container)
       .removeClass('bg-indigo-200 w-max')
       .setClass('w-6 h-6 bg-emerald-200 rounded-full')
-      .disable();
+      .disable()
+      .setHandler('click', () => {
+        if (this.stopBtn.getStatus() === 'disabled') return;
+
+        this.driveModeOff();
+        this.onStopCar(this.carData.id);
+      });
 
     return container;
   }
@@ -76,7 +90,7 @@ export default class CarTrack extends BaseComponent {
     );
 
     this.carElement
-      .setClass('w-8 h-8 absolute left-[5%]')
+      .setClass('w-8 h-8 absolute left-[2%]')
       .setInnerHTML(
         ` <svg class="w-full h-full rotate-90" style="fill: ${this.carData.color};">
           <use xlink:href="#car-top-view"></use>
@@ -96,13 +110,40 @@ export default class CarTrack extends BaseComponent {
     return container;
   }
 
-  drive(duration: number): void {
+  doDriveAnimation(duration: number): void {
     this.carAnimation = this.carElement.animate(keyframe, getKeyframeOptions(duration));
   }
 
-  stop(): void {
+  doBreakAnimation(): void {
     if (!this.carAnimation) return;
 
     this.carAnimation.pause();
+  }
+
+  doStopAnimation(): void {
+    if (!this.carAnimation) return;
+
+    this.carAnimation.cancel();
+  }
+
+  private driveModeOn(): void {
+    this.driveBtn.disable();
+    this.stopBtn.enable();
+  }
+
+  private driveModeOff(): void {
+    this.driveBtn.enable();
+    this.stopBtn.disable();
+  }
+
+  drive(): Promise<WinMessageData> {
+    this.driveModeOn();
+
+    return this.onDriveCar(this.carData.id, this.carData.name);
+  }
+
+  stop(): void {
+    this.driveModeOff();
+    this.onStopCar(this.carData.id);
   }
 }

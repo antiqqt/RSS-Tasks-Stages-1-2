@@ -133,7 +133,7 @@ export default class GarageModel {
       method: 'PATCH',
     });
 
-    return response.status !== 200 ? { success: false } : { ...(await response.json()) };
+    return response.ok ? { ...(await response.json()) } : { success: false };
   }
 
   async switchCurrentPage(direction: SwitchPageDirections): Promise<number> {

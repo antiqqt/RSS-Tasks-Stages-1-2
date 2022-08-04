@@ -1,7 +1,7 @@
 import BaseComponent from '../common/BaseComponent/BaseComponent';
 import GarageModel from './GarageModel';
 import GarageView from './view/GarageView';
-import { NewCarData, SwitchPageDirections } from './types';
+import { NewCarData, SwitchPageDirections, WinMessageData } from './types';
 import generateCarData from '../common/utils/generateCarData';
 
 export default class GarageController {
@@ -19,7 +19,10 @@ export default class GarageController {
       this.deleteCarCallback,
       this.switchPageCallback,
       this.generateCarsCallback,
-      this.driveCarCallback
+      this.driveCarCallback,
+      this.stopCarCallback,
+      this.startRaceCallback,
+      this.resetRaceCallback
     ).attachTo(container);
 
     this.start();
@@ -75,16 +78,37 @@ export default class GarageController {
     Promise.all(randomCarsData).then(() => this.renderPage());
   };
 
-  private driveCarCallback = (id: number): void => {
-    this.model.startEngine(id).then((data) => {
-      const duration = data.distance / data.velocity;
+  private driveCarCallback = (id: number, name: string): Promise<WinMessageData> =>
+    this.model.startEngine(id).then((carInfo) => {
+      const duration = carInfo.distance / carInfo.velocity;
 
-      this.view.driveCar(id, duration);
+      this.view.doDriveCarAnimation(id, duration);
+      const animationStartTimer = Date.now();
 
-      this.model.switchEngine(id).then((response) => {
-        if (!response.success) this.view.stopCar(id);
+      // Return new promise which will resolve after N ms
+      // to make this method compatible with Promise.race();
+      return new Promise<WinMessageData>((resolve) => {
+        this.model.switchEngine(id).then((response) => {
+          if (!response.success) this.view.doBreakCarAnimation(id);
+
+          const timeDiff = Date.now() - animationStartTimer;
+          if (response.success) setTimeout(() => resolve([name, duration]), duration - timeDiff);
+        });
       });
     });
+
+  private stopCarCallback = (id: number): void => {
+    this.model.stopEngine(id).then(() => this.view.doStopCarAnimation(id));
+  };
+
+  private startRaceCallback = (): void => {
+    const competingCars = this.view.getCarTracksArray().map((car) => car.drive());
+
+    Promise.race(competingCars).then((data) => this.view.openWinMessage(data));
+  };
+
+  private resetRaceCallback = (): void => {
+    this.view.getCarTracksArray().forEach((car) => car.stop());
   };
 
   private switchPageCallback = (direction: SwitchPageDirections): Promise<number> =>

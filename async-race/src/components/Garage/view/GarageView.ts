@@ -10,14 +10,21 @@ import {
   DeleteCarCallback,
   DriveCarCallback,
   GenerateCarsCallback,
+  RaceCallback,
   SelectCarCallback,
+  StopCarCallback,
   SwitchPageCallback,
   UpdateCarCallback,
+  WinMessageData,
 } from '../types';
 import Pagination from './Pagination/Pagination';
+import CarTrack from './CarTrack/CarTrack.';
+import WinMessage from './WinMessage/WinMessage';
 
 export default class GarageView extends BaseComponent {
   private pagination: Pagination;
+
+  private winMessage: WinMessage;
 
   private carUpdateField: CarUpdate;
 
@@ -28,18 +35,31 @@ export default class GarageView extends BaseComponent {
     private onDeleteCar: DeleteCarCallback,
     private onSwitchPage: SwitchPageCallback,
     private onGenerateCars: GenerateCarsCallback,
-    private onDriveCar: DriveCarCallback
+    private onDriveCar: DriveCarCallback,
+    private onStopCar: StopCarCallback,
+    private onStartRace: RaceCallback,
+    private onResetRace: RaceCallback
   ) {
     super('main');
     this.setClass('flex flex-col xl:items-center xl:min-w-full min-h-screen px-3 text-slate-300 bg-slate-700');
 
     this.carUpdateField = new CarUpdate(this.onUpdateCar);
-    this.pagination = new Pagination(this.onSwitchPage, this.onSelectCar, this.onDeleteCar, this.onDriveCar);
+
+    this.pagination = new Pagination(
+      this.onSwitchPage,
+      this.onSelectCar,
+      this.onDeleteCar,
+      this.onDriveCar,
+      this.onStopCar
+    );
+
+    this.winMessage = new WinMessage();
 
     this.renderHeader();
     this.renderRoutingBtns();
     this.renderGeneralSettings();
     this.pagination.attachTo(this);
+    this.winMessage.attachTo(this);
   }
 
   private renderHeader(): void {
@@ -85,8 +105,10 @@ export default class GarageView extends BaseComponent {
   private createGeneralBtns(): BaseComponent {
     const container = new BaseComponent('div').setClass('flex gap-x-3');
 
-    new Button('race', 'light').attachTo(container);
-    new Button('reset', 'light').attachTo(container);
+    new Button('race', 'light').attachTo(container).setHandler('click', () => this.onStartRace());
+
+    new Button('reset', 'light').attachTo(container).setHandler('click', () => this.onResetRace());
+
     new Button('generate cars', 'dark')
       .setClass('col-start-4 col-span-2')
       .attachTo(container)
@@ -119,17 +141,32 @@ export default class GarageView extends BaseComponent {
     this.pagination.enablePrevBtn();
   }
 
-  driveCar(id: number, duration: number): void {
+  doDriveCarAnimation(id: number, duration: number): void {
     const car = this.pagination.getCarTracks().get(id);
     if (!car) throw new Error(`No car with this id: ${id}`);
 
-    car.drive(duration);
+    car.doDriveAnimation(duration);
   }
 
-  stopCar(id: number): void {
+  doBreakCarAnimation(id: number): void {
     const car = this.pagination.getCarTracks().get(id);
     if (!car) throw new Error(`No car with this id: ${id}`);
 
-    car.stop();
+    car.doBreakAnimation();
+  }
+
+  doStopCarAnimation(id: number): void {
+    const car = this.pagination.getCarTracks().get(id);
+    if (!car) throw new Error(`No car with this id: ${id}`);
+
+    car.doStopAnimation();
+  }
+
+  getCarTracksArray(): CarTrack[] {
+    return [...this.pagination.getCarTracks()].map(([, track]) => track);
+  }
+
+  openWinMessage(data: WinMessageData): void {
+    return this.winMessage.open(data);
   }
 }
