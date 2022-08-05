@@ -111,6 +111,8 @@ export default class CarTrack extends BaseComponent {
   }
 
   doDriveAnimation(duration: number): void {
+    if (this.carAnimation) this.carAnimation.cancel();
+
     this.carAnimation = this.carElement.animate(keyframe, getKeyframeOptions(duration));
   }
 

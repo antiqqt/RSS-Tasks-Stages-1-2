@@ -124,9 +124,10 @@ export default class GarageView extends BaseComponent {
       .setHandler('click', () => {
         if (this.resetBtn.getStatus() === 'disabled') return;
 
-        this.raceBtn.enable();
-        this.resetBtn.disable();
         this.onResetRace();
+        this.resetBtn.disable();
+
+        setTimeout(() => this.raceBtn.enable(), 2500);
       });
 
     new Button('generate cars', 'dark')
