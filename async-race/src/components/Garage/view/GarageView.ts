@@ -26,7 +26,7 @@ export default class GarageView extends BaseComponent {
 
   private winMessage: WinMessage;
 
-  private carUpdateField: CarUpdate;
+  public carUpdateField: CarUpdate;
 
   private raceBtn: Button;
 
@@ -118,13 +118,16 @@ export default class GarageView extends BaseComponent {
       this.onStartRace();
     });
 
-    this.resetBtn.attachTo(container).setHandler('click', () => {
-      if (this.resetBtn.getStatus() === 'disabled') return;
+    this.resetBtn
+      .attachTo(container)
+      .disable()
+      .setHandler('click', () => {
+        if (this.resetBtn.getStatus() === 'disabled') return;
 
-      this.raceBtn.enable();
-      this.resetBtn.disable();
-      this.onResetRace();
-    });
+        this.raceBtn.enable();
+        this.resetBtn.disable();
+        this.onResetRace();
+      });
 
     new Button('generate cars', 'dark')
       .setClass('col-start-4 col-span-2')

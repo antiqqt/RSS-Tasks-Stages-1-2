@@ -65,7 +65,15 @@ export default class GarageController {
   };
 
   private deleteCarCallback = (id: number): void => {
-    this.model.deleteCar(id).then(() => this.renderPage());
+    this.model.deleteCar(id).then(() => {
+      const currentlyUpgradedCarID = this.view.carUpdateField.getOpenedCarId();
+
+      if (currentlyUpgradedCarID && currentlyUpgradedCarID === id) {
+        this.view.carUpdateField.writingModeOff();
+      }
+
+      this.renderPage();
+    });
   };
 
   private generateCarsCallback = (numberOfNewCars = 100): void => {

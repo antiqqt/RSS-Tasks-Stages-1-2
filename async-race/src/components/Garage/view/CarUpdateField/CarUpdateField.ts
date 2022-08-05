@@ -9,7 +9,7 @@ export default class CarUpdateField extends BaseComponent {
 
   private colorPicker: ColorPicker;
 
-  private btn: BaseComponent;
+  private btn: Button;
 
   private openedCarID: number | null;
 
@@ -53,20 +53,24 @@ export default class CarUpdateField extends BaseComponent {
   }
 
   private writingModeOn(): void {
-    [this.searchBar, this.colorPicker, this.btn].forEach((elem) =>
+    [this.searchBar, this.colorPicker].forEach((elem) =>
       elem.removeClass('opacity-50 cursor-not-allowed').setClass('cursor-pointer')
     );
 
-    this.btn.setClass('cursor-pointer hover:border-indigo-400');
+    this.btn.enable();
   }
 
-  private writingModeOff(): void {
-    [this.searchBar, this.colorPicker, this.btn].forEach((elem) =>
+  writingModeOff(): void {
+    [this.searchBar, this.colorPicker].forEach((elem) =>
       elem.removeClass('cursor-pointer').setClass('opacity-50 cursor-not-allowed')
     );
 
-    this.btn.removeClass('cursor-pointer hover:border-indigo-400');
+    this.btn.disable();
     this.searchBar.setTextInput('');
     this.colorPicker.setColorInput('#000000');
+  }
+
+  getOpenedCarId(): number | null {
+    return this.openedCarID;
   }
 }
