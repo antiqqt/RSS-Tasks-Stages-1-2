@@ -1,4 +1,4 @@
-import App from './components/App/App';
+import App from './components/app/App';
 import BaseComponent from './components/common/BaseComponent/BaseComponent';
 import './main.css';
 

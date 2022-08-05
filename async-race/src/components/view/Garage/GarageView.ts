@@ -1,8 +1,5 @@
 import BaseComponent from '../../common/BaseComponent/BaseComponent';
 import Button from '../../common/Button/Button';
-import CarUpdate from './CarUpdateField/CarUpdateField';
-import ColorPicker from './ColorPIcker/ColorPicker';
-import SearchBar from './SearchBar/SearchBar';
 import {
   CarData,
   CarsData,
@@ -16,9 +13,12 @@ import {
   SwitchPageCallback,
   UpdateCarCallback,
   WinMessageData,
-} from '../types';
-import Pagination from './Pagination/Pagination';
+} from '../../types';
 import CarTrack from './CarTrack/CarTrack.';
+import CarUpdateField from './CarUpdateField/CarUpdateField';
+import ColorPicker from './ColorPIcker/ColorPicker';
+import Pagination from './Pagination/Pagination';
+import SearchBar from './SearchBar/SearchBar';
 import WinMessage from './WinMessage/WinMessage';
 
 export default class GarageView extends BaseComponent {
@@ -26,7 +26,7 @@ export default class GarageView extends BaseComponent {
 
   private winMessage: WinMessage;
 
-  public carUpdateField: CarUpdate;
+  public carUpdateField: CarUpdateField;
 
   private raceBtn: Button;
 
@@ -44,10 +44,10 @@ export default class GarageView extends BaseComponent {
     private onStartRace: RaceCallback,
     private onResetRace: RaceCallback
   ) {
-    super('main');
-    this.setClass('flex flex-col xl:items-center xl:min-w-full min-h-screen px-3 text-slate-300 bg-slate-700');
+    super('section');
+    this.setClass('self-stretch flex flex-col xl:items-center xl:min-w-full');
 
-    this.carUpdateField = new CarUpdate(this.onUpdateCar);
+    this.carUpdateField = new CarUpdateField(this.onUpdateCar);
 
     this.raceBtn = new Button('race', 'light');
     this.resetBtn = new Button('reset', 'light');
@@ -62,25 +62,9 @@ export default class GarageView extends BaseComponent {
 
     this.winMessage = new WinMessage();
 
-    this.renderHeader();
-    this.renderRoutingBtns();
     this.renderGeneralSettings();
     this.pagination.attachTo(this);
     this.winMessage.attachTo(this);
-  }
-
-  private renderHeader(): void {
-    new BaseComponent('header')
-      .setClass('pt-3 text-5xl font-bold tracking-wide')
-      .setInnerText('Async Race')
-      .attachTo(this);
-  }
-
-  private renderRoutingBtns(): void {
-    const container = new BaseComponent('div').setClass('flex gap-x-2 pt-4').attachTo(this);
-
-    new Button('garage', 'light').attachTo(container);
-    new Button('winners', 'light').attachTo(container);
   }
 
   private renderGeneralSettings(): void {

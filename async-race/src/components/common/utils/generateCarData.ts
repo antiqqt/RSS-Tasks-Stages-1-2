@@ -1,4 +1,4 @@
-import { NewCarData } from '../../Garage/types';
+import { NewCarData } from '../../types';
 
 const CAR_BRANDS = [
   'Acura',

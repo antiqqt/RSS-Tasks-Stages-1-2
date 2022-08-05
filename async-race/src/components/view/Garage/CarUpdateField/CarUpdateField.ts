@@ -1,6 +1,6 @@
-import { CarData, UpdateCarCallback } from '../../types';
 import BaseComponent from '../../../common/BaseComponent/BaseComponent';
 import Button from '../../../common/Button/Button';
+import { CarData, UpdateCarCallback } from '../../../types';
 import ColorPicker from '../ColorPIcker/ColorPicker';
 import SearchBar from '../SearchBar/SearchBar';
 

@@ -1,6 +1,6 @@
 import BaseComponent from '../../../common/BaseComponent/BaseComponent';
 import Button from '../../../common/Button/Button';
-import { WinMessageData } from '../../types';
+import { WinMessageData } from '../../../types';
 
 export default class WinMessage extends BaseComponent {
   private textElement: BaseComponent;

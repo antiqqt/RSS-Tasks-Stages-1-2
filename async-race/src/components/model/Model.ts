@@ -1,6 +1,6 @@
-import { CarData, CarPositionInfo, CarsData, NewCarData, SwitchEngineResponse, SwitchPageDirections } from './types';
+import { CarData, CarPositionInfo, CarsData, NewCarData, SwitchEngineResponse, SwitchPageDirections } from '../types';
 
-export default class GarageModel {
+export default class Model {
   private basePath: string;
 
   private garagePath: string;

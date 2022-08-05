@@ -7,7 +7,7 @@ import {
   SelectCarCallback,
   StopCarCallback,
   WinMessageData,
-} from '../../types';
+} from '../../../types';
 
 const keyframe = [{ left: '2%' }, { left: '91%' }];
 
@@ -19,7 +19,7 @@ const getKeyframeOptions = (duration: number): KeyframeAnimationOptions => ({
 export default class CarTrack extends BaseComponent {
   private carElement: BaseComponent;
 
-  private carAnimation: Animation | undefined;
+  private carAnimation?: Animation;
 
   private driveBtn: Button;
 

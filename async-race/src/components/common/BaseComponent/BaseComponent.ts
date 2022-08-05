@@ -54,6 +54,11 @@ export default class BaseComponent {
     return this;
   }
 
+  remove(): this {
+    this.element.remove();
+    return this;
+  }
+
   animate(
     keyframes: Keyframe[] | PropertyIndexedKeyframes | null,
     options?: number | KeyframeAnimationOptions

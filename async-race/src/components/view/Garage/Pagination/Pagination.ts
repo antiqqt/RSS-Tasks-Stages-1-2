@@ -8,7 +8,7 @@ import {
   StopCarCallback,
   SwitchPageCallback,
   SwitchPageDirections,
-} from '../../types';
+} from '../../../types';
 import CarTrack from '../CarTrack/CarTrack.';
 
 export default class Pagination extends BaseComponent {
