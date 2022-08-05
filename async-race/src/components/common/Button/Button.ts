@@ -29,7 +29,7 @@ export default class Button extends BaseComponent {
     ]);
 
     if (color === 'light') {
-      this.setClass('bg-yellow-100 hover:border-indigo-300');
+      this.setClass('bg-yellow-100 hover:border-indigo-400');
     } else {
       this.setClass('bg-indigo-200 hover:border-indigo-400');
     }

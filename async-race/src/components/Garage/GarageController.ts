@@ -82,6 +82,7 @@ export default class GarageController {
     this.model.startEngine(id).then((carInfo) => {
       const duration = carInfo.distance / carInfo.velocity;
 
+      this.view.raceModeOn();
       this.view.doDriveCarAnimation(id, duration);
       const animationStartTimer = Date.now();
 
@@ -104,7 +105,10 @@ export default class GarageController {
   private startRaceCallback = (): void => {
     const competingCars = this.view.getCarTracksArray().map((car) => car.drive());
 
-    Promise.race(competingCars).then((data) => this.view.openWinMessage(data));
+    Promise.race(competingCars).then((data) => {
+      this.view.openWinMessage(data);
+      this.view.raceModeOff();
+    });
   };
 
   private resetRaceCallback = (): void => {

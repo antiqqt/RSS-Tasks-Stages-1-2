@@ -28,6 +28,10 @@ export default class GarageView extends BaseComponent {
 
   private carUpdateField: CarUpdate;
 
+  private raceBtn: Button;
+
+  private resetBtn: Button;
+
   constructor(
     private onCreateCar: CreateCarCallback,
     private onSelectCar: SelectCarCallback,
@@ -44,6 +48,9 @@ export default class GarageView extends BaseComponent {
     this.setClass('flex flex-col xl:items-center xl:min-w-full min-h-screen px-3 text-slate-300 bg-slate-700');
 
     this.carUpdateField = new CarUpdate(this.onUpdateCar);
+
+    this.raceBtn = new Button('race', 'light');
+    this.resetBtn = new Button('reset', 'light');
 
     this.pagination = new Pagination(
       this.onSwitchPage,
@@ -105,9 +112,19 @@ export default class GarageView extends BaseComponent {
   private createGeneralBtns(): BaseComponent {
     const container = new BaseComponent('div').setClass('flex gap-x-3');
 
-    new Button('race', 'light').attachTo(container).setHandler('click', () => this.onStartRace());
+    this.raceBtn.attachTo(container).setHandler('click', () => {
+      if (this.raceBtn.getStatus() === 'disabled') return;
 
-    new Button('reset', 'light').attachTo(container).setHandler('click', () => this.onResetRace());
+      this.onStartRace();
+    });
+
+    this.resetBtn.attachTo(container).setHandler('click', () => {
+      if (this.resetBtn.getStatus() === 'disabled') return;
+
+      this.raceBtn.enable();
+      this.resetBtn.disable();
+      this.onResetRace();
+    });
 
     new Button('generate cars', 'dark')
       .setClass('col-start-4 col-span-2')
@@ -168,5 +185,14 @@ export default class GarageView extends BaseComponent {
 
   openWinMessage(data: WinMessageData): void {
     return this.winMessage.open(data);
+  }
+
+  raceModeOn(): void {
+    this.raceBtn.disable();
+    this.resetBtn.disable();
+  }
+
+  raceModeOff(): void {
+    this.resetBtn.enable();
   }
 }
