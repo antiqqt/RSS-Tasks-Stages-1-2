@@ -170,7 +170,7 @@ export default class GarageView extends BaseComponent {
     return [...this.pagination.getCarTracks()].map(([, track]) => track);
   }
 
-  openWinMessage(carName: string, time: number): void {
+  openWinMessage(carName?: string, time?: number): void {
     return this.winMessage.open(carName, time);
   }
 

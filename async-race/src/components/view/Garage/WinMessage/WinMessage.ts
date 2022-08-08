@@ -50,10 +50,14 @@ export default class WinMessage extends BaseComponent {
     new Button('Close', 'dark').attachTo(block).setHandler('click', () => this.hide());
   }
 
-  open(carName: string, time: number): void {
+  open(carName?: string, time?: number): void {
     this.removeClass('hidden');
 
-    this.textElement.setInnerText(`${carName} wins! [${time}s]`);
+    if (time && carName) {
+      this.textElement.setInnerText(`${carName} wins! [${time}s]`);
+    } else {
+      this.textElement.setInnerText(`No one wins! All cars were broken.`);
+    }
   }
 
   hide(): void {
