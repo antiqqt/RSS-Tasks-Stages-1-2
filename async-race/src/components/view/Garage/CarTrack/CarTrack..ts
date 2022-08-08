@@ -148,7 +148,9 @@ export default class CarTrack extends BaseComponent {
 
   private driveModeOn(): void {
     this.driveBtn.disable();
-    this.stopBtn.enable();
+    setTimeout(() => {
+      this.stopBtn.enable();
+    }, 1500);
 
     this.selectBtn.disable();
     this.removeBtn.disable();
@@ -162,7 +164,7 @@ export default class CarTrack extends BaseComponent {
     this.removeBtn.enable();
   }
 
-  drive(): Promise<RaceWinnerData> {
+  drive(): Promise<[boolean, RaceWinnerData]> {
     this.driveModeOn();
 
     return this.onDriveCar(this.carData.id, this.carData.name);

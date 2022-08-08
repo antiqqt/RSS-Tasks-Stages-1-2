@@ -169,7 +169,7 @@ export default class App {
     Promise.all(randomCarsData).then(() => this.renderGaragePage());
   };
 
-  private driveCarCallback = (id: number, name: string): Promise<RaceWinnerData> =>
+  private driveCarCallback = (id: number, name: string): Promise<[boolean, RaceWinnerData]> =>
     this.model.startEngine(id).then((carInfo) => {
       const duration = carInfo.distance / carInfo.velocity;
 
@@ -178,15 +178,15 @@ export default class App {
 
       // Return new promise which will resolve after N ms
       // to make this method compatible with Promise.race();
-      return new Promise<RaceWinnerData>((resolve, reject) => {
+      return new Promise<[boolean, RaceWinnerData]>((resolve) => {
         this.model.switchEngine(id).then((response) => {
           if (!response.success) {
             this.garageView.doBreakCarAnimation(id);
 
-            reject(new Error('Engine broke'));
+            resolve([true, { name, id, duration }]);
           } else {
             const timeDiff = Date.now() - animationStartTimer;
-            setTimeout(() => resolve({ name, id, duration }), duration - timeDiff);
+            setTimeout(() => resolve([false, { name, id, duration }]), duration - timeDiff);
           }
         });
       });
@@ -201,11 +201,9 @@ export default class App {
 
     this.garageView.raceModeOn();
 
-    Promise.allSettled(competingCars)
+    Promise.all(competingCars)
       .then((results) => {
-        const undamagedCars = results
-          .filter((x) => x.status === 'fulfilled')
-          .map((x) => (x as PromiseFulfilledResult<RaceWinnerData>).value);
+        const undamagedCars = results.filter(([hasBroken]) => !hasBroken).map((res) => res[1]);
 
         if (undamagedCars.length === 1) return undamagedCars[0];
         if (undamagedCars.length > 1) {
