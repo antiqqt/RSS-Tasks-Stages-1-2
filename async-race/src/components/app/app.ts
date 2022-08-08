@@ -178,12 +178,16 @@ export default class App {
 
       // Return new promise which will resolve after N ms
       // to make this method compatible with Promise.race();
-      return new Promise<RaceWinnerData>((resolve) => {
+      return new Promise<RaceWinnerData>((resolve, reject) => {
         this.model.switchEngine(id).then((response) => {
-          if (!response.success) this.garageView.doBreakCarAnimation(id);
+          if (!response.success) {
+            this.garageView.doBreakCarAnimation(id);
 
-          const timeDiff = Date.now() - animationStartTimer;
-          if (response.success) setTimeout(() => resolve({ name, id, duration }), duration - timeDiff);
+            reject(new Error('Engine broke'));
+          } else {
+            const timeDiff = Date.now() - animationStartTimer;
+            setTimeout(() => resolve({ name, id, duration }), duration - timeDiff);
+          }
         });
       });
     });
@@ -197,17 +201,37 @@ export default class App {
 
     this.garageView.raceModeOn();
 
-    Promise.race(competingCars).then(async ({ id, name, duration }) => {
-      const durationAsDate = new Date(duration);
-      const sec = durationAsDate.getUTCSeconds();
-      const ms = durationAsDate.getUTCMilliseconds();
-      const time = parseFloat(`${sec}.${ms}`);
+    Promise.allSettled(competingCars)
+      .then((results) => {
+        const undamagedCars = results
+          .filter((x) => x.status === 'fulfilled')
+          .map((x) => (x as PromiseFulfilledResult<RaceWinnerData>).value);
 
-      this.garageView.openWinMessage(name, time);
-      this.garageView.raceModeOff();
+        if (undamagedCars.length === 1) return undamagedCars[0];
+        if (undamagedCars.length > 1) {
+          return undamagedCars.reduce((fastest, curr) => (curr.duration < fastest.duration ? curr : fastest));
+        }
 
-      this.model.saveWinner(id, { id, wins: 1, time }).then(() => this.renderWinnersPage());
-    });
+        return undefined;
+      })
+      .then(async (winnerData?: RaceWinnerData) => {
+        if (!winnerData) {
+          this.garageView.openWinMessage();
+          return;
+        }
+
+        const { id, name, duration } = winnerData;
+
+        const durationAsDate = new Date(duration);
+        const sec = durationAsDate.getUTCSeconds();
+        const ms = durationAsDate.getUTCMilliseconds();
+        const time = parseFloat(`${sec}.${ms}`);
+
+        this.garageView.raceModeOff();
+        this.garageView.openWinMessage(name, time);
+
+        this.model.saveWinner(id, { id, wins: 1, time }).then(() => this.renderWinnersPage());
+      });
   };
 
   private resetRaceCallback = (): void => {
