@@ -2,9 +2,13 @@ import BaseComponent from '../common/BaseComponent/BaseComponent';
 import Button from '../common/Button/Button';
 import generateCarData from '../common/utils/generateCarData';
 import Model from '../model/Model';
-import { NewCarData, SwitchPageDirections, WinMessageData } from '../types';
+import { CarData, NewCarData, RaceWinnerData, SortOrder, SwitchPageDirections } from '../types';
 import GarageView from '../view/Garage/GarageView';
 import WinnersView from '../view/Winners/WinnersView';
+
+const CARS_PER_PAGE = 7;
+const WINNERS_PER_PAGE = 10;
+const MIN_PAGE_INDEX = 1;
 
 export default class App {
   private routes: Record<string, BaseComponent>;
@@ -34,7 +38,7 @@ export default class App {
       this.selectCarCallback,
       this.updateCarCallback,
       this.deleteCarCallback,
-      this.switchPageCallback,
+      this.switchGaragePageCallback,
       this.generateCarsCallback,
       this.driveCarCallback,
       this.stopCarCallback,
@@ -42,7 +46,7 @@ export default class App {
       this.resetRaceCallback
     );
 
-    this.winnersView = new WinnersView('section');
+    this.winnersView = new WinnersView(this.getCarCallback, this.switchWinnersPageCallback, this.sortWinnersCallback);
 
     this.routes = {
       garage: this.garageView,
@@ -84,14 +88,11 @@ export default class App {
   }
 
   private renderGaragePage(): void {
-    this.model.getCars().then((carsData) => {
-      this.garageView.renderPage(carsData);
+    this.model.getCars().then((data) => {
+      this.garageView.renderPage(data);
 
-      const CARS_PER_PAGE = 7;
-      const MIN_PAGE_INDEX = 1;
-
-      const nextPageExists = Number(carsData.count) > this.model.getCurrentPage() * CARS_PER_PAGE;
-      const prevPageExists = this.model.getCurrentPage() > MIN_PAGE_INDEX;
+      const nextPageExists = Number(data.count) > this.model.getCurrentGaragePage() * CARS_PER_PAGE;
+      const prevPageExists = this.model.getCurrentGaragePage() > MIN_PAGE_INDEX;
 
       if (nextPageExists) {
         this.garageView.enableNextPageBtn();
@@ -106,6 +107,29 @@ export default class App {
       }
     });
   }
+
+  private renderWinnersPage(): void {
+    this.model.getWinners().then((data) => {
+      this.winnersView.renderPage(data, this.model.getCurrentWinnersPage());
+
+      const nextPageExists = Number(data.count) > this.model.getCurrentWinnersPage() * WINNERS_PER_PAGE;
+      const prevPageExists = this.model.getCurrentWinnersPage() > MIN_PAGE_INDEX;
+
+      if (nextPageExists) {
+        this.winnersView.enableNextPageBtn();
+      } else {
+        this.winnersView.disableNextPageBtn();
+      }
+
+      if (prevPageExists) {
+        this.winnersView.enablePrevPageBtn();
+      } else {
+        this.winnersView.disablePrevPageBtn();
+      }
+    });
+  }
+
+  private getCarCallback = (id: number): Promise<CarData> => this.model.getCar(id);
 
   private selectCarCallback = (id: number): void => {
     this.model.getCar(id).then((data) => this.garageView.openСarUpdate(data));
@@ -129,6 +153,10 @@ export default class App {
 
       this.renderGaragePage();
     });
+
+    this.model.deleteWinner(id).then((isUpdateNeeded) => {
+      if (isUpdateNeeded) this.renderWinnersPage();
+    });
   };
 
   private generateCarsCallback = (numberOfNewCars = 100): void => {
@@ -141,7 +169,7 @@ export default class App {
     Promise.all(randomCarsData).then(() => this.renderGaragePage());
   };
 
-  private driveCarCallback = (id: number, name: string): Promise<WinMessageData> =>
+  private driveCarCallback = (id: number, name: string): Promise<RaceWinnerData> =>
     this.model.startEngine(id).then((carInfo) => {
       const duration = carInfo.distance / carInfo.velocity;
 
@@ -150,12 +178,12 @@ export default class App {
 
       // Return new promise which will resolve after N ms
       // to make this method compatible with Promise.race();
-      return new Promise<WinMessageData>((resolve) => {
+      return new Promise<RaceWinnerData>((resolve) => {
         this.model.switchEngine(id).then((response) => {
           if (!response.success) this.garageView.doBreakCarAnimation(id);
 
           const timeDiff = Date.now() - animationStartTimer;
-          if (response.success) setTimeout(() => resolve([name, duration]), duration - timeDiff);
+          if (response.success) setTimeout(() => resolve({ name, id, duration }), duration - timeDiff);
         });
       });
     });
@@ -169,9 +197,16 @@ export default class App {
 
     this.garageView.raceModeOn();
 
-    Promise.race(competingCars).then((data) => {
-      this.garageView.openWinMessage(data);
+    Promise.race(competingCars).then(async ({ id, name, duration }) => {
+      const durationAsDate = new Date(duration);
+      const sec = durationAsDate.getUTCSeconds();
+      const ms = durationAsDate.getUTCMilliseconds();
+      const time = parseFloat(`${sec}.${ms}`);
+
+      this.garageView.openWinMessage(name, time);
       this.garageView.raceModeOff();
+
+      this.model.saveWinner(id, { id, wins: 1, time }).then(() => this.renderWinnersPage());
     });
   };
 
@@ -179,10 +214,19 @@ export default class App {
     this.garageView.getCarTracksArray().forEach((car) => car.stop());
   };
 
-  private switchPageCallback = (direction: SwitchPageDirections): Promise<number> =>
-    this.model.switchCurrentPage(direction).finally(() => this.renderGaragePage());
+  private switchGaragePageCallback = (direction: SwitchPageDirections): Promise<number> =>
+    this.model.switchCurrentGaragePage(direction).finally(() => this.renderGaragePage());
+
+  private switchWinnersPageCallback = (direction: SwitchPageDirections): Promise<number> =>
+    this.model.switchCurrentWinnersPage(direction).finally(() => this.renderWinnersPage());
+
+  private sortWinnersCallback = (order?: SortOrder): void => {
+    this.model.setSortOrder(order);
+    this.renderWinnersPage();
+  };
 
   start(): void {
     this.renderGaragePage();
+    this.renderWinnersPage();
   }
 }

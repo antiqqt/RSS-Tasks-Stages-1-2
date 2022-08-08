@@ -1,6 +1,5 @@
 import BaseComponent from '../../../common/BaseComponent/BaseComponent';
 import Button from '../../../common/Button/Button';
-import { WinMessageData } from '../../../types';
 
 export default class WinMessage extends BaseComponent {
   private textElement: BaseComponent;
@@ -51,10 +50,10 @@ export default class WinMessage extends BaseComponent {
     new Button('Close', 'dark').attachTo(block).setHandler('click', () => this.hide());
   }
 
-  open([carName, raceTime]: WinMessageData): void {
+  open(carName: string, time: number): void {
     this.removeClass('hidden');
 
-    this.textElement.setInnerText(`${carName} wins! [${new Date(raceTime).getUTCSeconds()}s]`);
+    this.textElement.setInnerText(`${carName} wins! [${time}s]`);
   }
 
   hide(): void {

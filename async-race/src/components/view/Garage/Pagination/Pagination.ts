@@ -43,12 +43,12 @@ export default class Pagination extends BaseComponent {
     this.prevBtn = new Button('prev', 'dark');
     this.nextBtn = new Button('next', 'dark');
 
-    this.renderPageControls().attachTo(this);
+    this.createPageControls().attachTo(this);
 
     this.pageElement = new BaseComponent('div').setClass('flex-grow flex flex-col gap-y-6 pt-4 pb-6').attachTo(this);
   }
 
-  private renderPageControls(): BaseComponent {
+  private createPageControls(): BaseComponent {
     const container = new BaseComponent('div').setClass('flex items-center gap-x-3');
 
     this.pageCounter.attachTo(container);

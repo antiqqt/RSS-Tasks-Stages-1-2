@@ -4,9 +4,9 @@ import {
   CarData,
   DeleteCarCallback,
   DriveCarCallback,
+  RaceWinnerData,
   SelectCarCallback,
   StopCarCallback,
-  WinMessageData,
 } from '../../../types';
 
 const keyframe = [{ left: '2%' }, { left: '91%' }];
@@ -25,6 +25,10 @@ export default class CarTrack extends BaseComponent {
 
   private stopBtn: Button;
 
+  private selectBtn: Button;
+
+  private removeBtn: Button;
+
   constructor(
     public carData: CarData,
     private onSelectCar: SelectCarCallback,
@@ -38,6 +42,8 @@ export default class CarTrack extends BaseComponent {
     this.carElement = new BaseComponent('div');
     this.driveBtn = new Button('A', 'dark');
     this.stopBtn = new Button('B', 'dark');
+    this.selectBtn = new Button('select', 'light');
+    this.removeBtn = new Button('remove', 'light');
 
     this.createTrackControls(this.carData.name, this.carData.id).attachTo(this);
     this.createCarTrack().attachTo(this.createEngineControls().attachTo(this));
@@ -46,9 +52,21 @@ export default class CarTrack extends BaseComponent {
   private createTrackControls(carName: string, carID: number): BaseComponent {
     const container = new BaseComponent('div').setClass('flex gap-x-2');
 
-    new Button('select', 'light').setHandler('click', () => this.onSelectCar(carID)).attachTo(container);
+    this.selectBtn
+      .setHandler('click', () => {
+        if (this.selectBtn.getStatus() === 'disabled') return;
 
-    new Button('remove', 'light').setHandler('click', () => this.onDeleteCar(carID)).attachTo(container);
+        this.onSelectCar(carID);
+      })
+      .attachTo(container);
+
+    this.removeBtn
+      .setHandler('click', () => {
+        if (this.removeBtn.getStatus() === 'disabled') return;
+
+        this.onDeleteCar(carID);
+      })
+      .attachTo(container);
 
     new BaseComponent('div').setClass('ml-2 font-semibold text-md').setInnerText(carName).attachTo(container);
 
@@ -131,14 +149,20 @@ export default class CarTrack extends BaseComponent {
   private driveModeOn(): void {
     this.driveBtn.disable();
     this.stopBtn.enable();
+
+    this.selectBtn.disable();
+    this.removeBtn.disable();
   }
 
   private driveModeOff(): void {
     this.driveBtn.enable();
     this.stopBtn.disable();
+
+    this.selectBtn.enable();
+    this.removeBtn.enable();
   }
 
-  drive(): Promise<WinMessageData> {
+  drive(): Promise<RaceWinnerData> {
     this.driveModeOn();
 
     return this.onDriveCar(this.carData.id, this.carData.name);

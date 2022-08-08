@@ -12,7 +12,6 @@ import {
   StopCarCallback,
   SwitchPageCallback,
   UpdateCarCallback,
-  WinMessageData,
 } from '../../types';
 import CarTrack from './CarTrack/CarTrack.';
 import CarUpdateField from './CarUpdateField/CarUpdateField';
@@ -171,8 +170,8 @@ export default class GarageView extends BaseComponent {
     return [...this.pagination.getCarTracks()].map(([, track]) => track);
   }
 
-  openWinMessage(data: WinMessageData): void {
-    return this.winMessage.open(data);
+  openWinMessage(carName: string, time: number): void {
+    return this.winMessage.open(carName, time);
   }
 
   raceModeOn(): void {
