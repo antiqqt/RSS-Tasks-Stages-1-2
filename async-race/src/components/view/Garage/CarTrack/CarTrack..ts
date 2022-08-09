@@ -84,7 +84,7 @@ export default class CarTrack extends BaseComponent {
         if (this.driveBtn.getStatus() === 'disabled') return;
 
         this.driveModeOn();
-        this.onDriveCar(this.carData.id, this.carData.name);
+        this.onDriveCar(this.carData.id, this.carData.name).catch(() => {});
       });
 
     this.stopBtn
@@ -157,16 +157,17 @@ export default class CarTrack extends BaseComponent {
   }
 
   private driveModeOff(): void {
-    this.driveBtn.enable();
+    setTimeout(() => {
+      this.driveBtn.enable();
+    }, 2000);
     this.stopBtn.disable();
 
     this.selectBtn.enable();
     this.removeBtn.enable();
   }
 
-  drive(): Promise<[boolean, RaceWinnerData]> {
+  drive(): Promise<RaceWinnerData> {
     this.driveModeOn();
-
     return this.onDriveCar(this.carData.id, this.carData.name);
   }
 

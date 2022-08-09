@@ -169,24 +169,21 @@ export default class App {
     Promise.all(randomCarsData).then(() => this.renderGaragePage());
   };
 
-  private driveCarCallback = (id: number, name: string): Promise<[boolean, RaceWinnerData]> =>
+  private driveCarCallback = (id: number, name: string): Promise<RaceWinnerData> =>
     this.model.startEngine(id).then((carInfo) => {
       const duration = carInfo.distance / carInfo.velocity;
 
       this.garageView.doDriveCarAnimation(id, duration);
-      const animationStartTimer = Date.now();
 
       // Return new promise which will resolve after N ms
       // to make this method compatible with Promise.race();
-      return new Promise<[boolean, RaceWinnerData]>((resolve) => {
+      return new Promise<RaceWinnerData>((resolve, reject) => {
         this.model.switchEngine(id).then((response) => {
           if (!response.success) {
             this.garageView.doBreakCarAnimation(id);
-
-            resolve([true, { name, id, duration }]);
+            reject(new Error('Engine broke'));
           } else {
-            const timeDiff = Date.now() - animationStartTimer;
-            setTimeout(() => resolve([false, { name, id, duration }]), duration - timeDiff);
+            resolve({ name, id, duration });
           }
         });
       });
@@ -198,28 +195,10 @@ export default class App {
 
   private startRaceCallback = (): void => {
     const competingCars = this.garageView.getCarTracksArray().map((car) => car.drive());
-
     this.garageView.raceModeOn();
 
-    Promise.all(competingCars)
-      .then((results) => {
-        const undamagedCars = results.filter(([hasBroken]) => !hasBroken).map((res) => res[1]);
-
-        if (undamagedCars.length === 1) return undamagedCars[0];
-        if (undamagedCars.length > 1) {
-          return undamagedCars.reduce((fastest, curr) => (curr.duration < fastest.duration ? curr : fastest));
-        }
-
-        return undefined;
-      })
-      .then(async (winnerData?: RaceWinnerData) => {
-        if (!winnerData) {
-          this.garageView.openWinMessage();
-          return;
-        }
-
-        const { id, name, duration } = winnerData;
-
+    Promise.any(competingCars)
+      .then(({ id, name, duration }) => {
         const durationAsDate = new Date(duration);
         const sec = durationAsDate.getUTCSeconds();
         const ms = durationAsDate.getUTCMilliseconds();
@@ -229,6 +208,10 @@ export default class App {
         this.garageView.openWinMessage(name, time);
 
         this.model.saveWinner(id, { id, wins: 1, time }).then(() => this.renderWinnersPage());
+      })
+      .catch(() => {
+        this.garageView.raceModeOff();
+        this.garageView.openWinMessage();
       });
   };
 
