@@ -31,6 +31,8 @@ export default class GarageView extends BaseComponent {
 
   private resetBtn: Button;
 
+  private generateCarsBtn: Button;
+
   constructor(
     private onCreateCar: CreateCarCallback,
     private onSelectCar: SelectCarCallback,
@@ -47,6 +49,8 @@ export default class GarageView extends BaseComponent {
     this.setClass('self-stretch flex flex-col xl:items-center xl:min-w-full');
 
     this.carUpdateField = new CarUpdateField(this.onUpdateCar);
+
+    this.generateCarsBtn = new Button('generate cars', 'dark');
 
     this.raceBtn = new Button('race', 'light');
     this.resetBtn = new Button('reset', 'light');
@@ -110,13 +114,20 @@ export default class GarageView extends BaseComponent {
         this.onResetRace();
         this.resetBtn.disable();
 
-        setTimeout(() => this.raceBtn.enable(), 2500);
+        setTimeout(() => {
+          this.generateCarsBtn.enable();
+          this.raceBtn.enable();
+        }, 2500);
       });
 
-    new Button('generate cars', 'dark')
+    this.generateCarsBtn
       .setClass('col-start-4 col-span-2')
       .attachTo(container)
-      .setHandler('click', () => this.onGenerateCars());
+      .setHandler('click', () => {
+        if (this.generateCarsBtn.getStatus() === 'disabled') return;
+
+        this.onGenerateCars();
+      });
 
     return container;
   }
@@ -177,6 +188,7 @@ export default class GarageView extends BaseComponent {
   raceModeOn(): void {
     this.raceBtn.disable();
     this.resetBtn.disable();
+    this.generateCarsBtn.disable();
   }
 
   raceModeOff(): void {
