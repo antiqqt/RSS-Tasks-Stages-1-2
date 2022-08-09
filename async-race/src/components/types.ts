@@ -46,7 +46,7 @@ export type SwitchPageCallback = (direction: SwitchPageDirections) => Promise<nu
 
 export type GenerateCarsCallback = (numberOfNewCars?: number) => void;
 
-export type DriveCarCallback = (id: number, name: string) => Promise<[boolean, RaceWinnerData]>;
+export type DriveCarCallback = (id: number, name: string) => Promise<RaceWinnerData>;
 
 export type StopCarCallback = (id: number) => void;
 
