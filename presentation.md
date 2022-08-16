@@ -1,0 +1,3 @@
+- [Video](https://youtu.be/XIAjjIN9yE4)
+- [Slides](https://antiqqt.github.io/tw-presentation/)
+- [Transcript](https://docs.google.com/document/d/1Y7YrNw5m1_yHFAFaH8A_c-g2tSuA3DimJPoueAoZ1EE/edit)
