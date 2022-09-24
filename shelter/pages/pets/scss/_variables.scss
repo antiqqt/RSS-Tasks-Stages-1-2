@@ -1,0 +1,104 @@
+// Add local Fonts
+@font-face {
+  font-family: 'Arial';
+  src: url('../../../assets/fonts/Arial-ItalicMT.woff2') format('woff2'),
+      url('../../../assets/fonts/Arial-ItalicMT.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Arial';
+  src: url('../../../assets/fonts/ArialMT.woff2') format('woff2'),
+      url('../../../assets/fonts/ArialMT.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Georgia';
+  src: url('../../../assets/fonts/Georgia-Italic.woff2') format('woff2'),
+      url('../../../assets/fonts/Georgia-Italic.woff') format('woff');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Georgia';
+  src: url('../../../assets/fonts/Georgia.woff2') format('woff2'),
+      url('../../../assets/fonts/Georgia.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Georgia';
+  src: url('../../../assets/fonts/Georgia-Bold.woff2') format('woff2'),
+      url('../../../assets/fonts/Georgia-Bold.woff') format('woff');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+// FONTS
+  // font-family
+$ff-main: 'Arial', Fallback, sans-serif;
+$ff-heading: 'Georgia', Fallback, serif;
+
+  // font-size
+$fs-h-2: 4.4rem;
+$fs-h-3: 3.5rem;
+$fs-h-3-mobile: 2.5rem;
+$fs-h-4: 2rem;
+$fs-h-5: 1.5rem;
+$fs-h-5-modal-window: 1.5rem;
+
+$fs-paragraph-s: 1.2rem;
+$fs-paragraph-l: 1.5rem;
+$fs-paragraph-mobile-menu: 3.2rem;
+
+$fs-logo-title: 3.2rem;
+$fs-logo-subtitle: 1.3rem;
+
+$fs-card-heading: 2rem;
+
+$fs-button: 17px;
+
+
+  // font-weight
+$fw-regular: 400;
+$fw-bold: 700;
+
+
+// Colors
+$color-light-xl: #FFFFFF;
+$color-light-l: #F6F6F6;
+$color-light-s: #FAFAFA;
+
+$color-dark-s: #CDCDCD;
+$color-dark-m: #B2B2B2;
+$color-dark-l: #545454;
+$color-dark-xl: #4C4C4C;
+$color-dark-2xl: #444444;
+$color-dark-3xl: #292929;
+$color-dark-4xl: #000000;
+
+$color-primary: #F1CDB3;
+$color-primary-light: #FDDCC4;
+
+$color-burger-dark: #000000;
+
+// Containers
+$max-width: 1280px;
+
+
+// Screensizes 
+$ss-large: 1280px;
+$ss-large-light: 1279.9px;
+$ss-medium: 768px;
+$ss-medium-light: 767.9px;
+$ss-small: 320px;

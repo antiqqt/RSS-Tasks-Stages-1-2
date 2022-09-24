@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+// 1. Configuration and helpers
+@use 'variables';
+
+// 2. Vendors
+@use 'normalize';
+
+// 3. Base stuff
+@use 'base';
+@use 'helpers';
+
+// 4. Components
+@use 'components';
+
+// 5. Layout-related sections
+@use 'layout';

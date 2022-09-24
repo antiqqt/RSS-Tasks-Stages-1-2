@@ -1,0 +1,21 @@
+{
+  "name": "shelter",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass-main": "sass --watch --no-source-map pages/main/scss",
+    "sass-pets": "sass --watch --no-source-map pages/pets/scss",
+    "postcss-main": "postcss --use autoprefixer -o pages/main/styles/style.css pages/main/scss/*.css --watch",
+    "postcss-pets": "postcss --use autoprefixer -o pages/pets/styles/style.css pages/pets/scss/*.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "postcss-cli": "^9.1.0",
+    "sass": "^1.49.9"
+  }
+}

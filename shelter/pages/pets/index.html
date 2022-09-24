@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta data -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Title -->
+    <title>Pets</title>
+    <!-- Favicon -->
+    <link
+      rel="shortcut icon"
+      href="../../assets/icons/favicon-shelter.png"
+      type="image/x-icon"
+    />
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles/style.css" />
+    <!-- Scripts -->
+    <script type="module" src="script.js" defer></script>
+  </head>
+  <body class="body">
+    <div class="body__container">
+      <!-- Blackout Overlay -->
+      <div class="overlay overlay--sidebar"></div>
+      <div class="overlay overlay--popup"></div>
+
+      <!-- Header -->
+      <div class="header-wrapper">
+        <header class="header header--pets">
+          <div class="header__container">
+            <!-- Logo -->
+            <a class="logo header__logo" href="../main/">
+              <h1 class="logo__title logo__title--dark">Cozy House</h1>
+              <p class="logo__subtitle logo__subtitle--dark">
+                Shelter for pets in Boston
+              </p>
+            </a>
+
+            <!-- Navigation -->
+            <nav
+              class="nav nav--sidebar nav--sidebar--light nav--sidebar--fixed header__nav"
+            >
+              <!-- Sidebar logo -->
+              <a class="logo nav__logo" href="../main">
+                <p class="logo__title logo__title--dark">Cozy House</p>
+                <p class="logo__subtitle logo__subtitle--dark">
+                  Shelter for pets in Boston
+                </p>
+              </a>
+
+              <!-- Navbar links -->
+              <ul class="nav__list">
+                <li class="nav__item">
+                  <a class="nav__link nav__link--dark" href="../main/">
+                    About the shelter
+                  </a>
+                </li>
+
+                <li class="nav__item">
+                  <a
+                    class="nav__link nav__link--dark nav__link--active nav__link--active--dark"
+                    href="#our-friends"
+                  >
+                    Our pets
+                  </a>
+                </li>
+
+                <li class="nav__item">
+                  <a class="nav__link nav__link--dark" href="../main/#help">
+                    Help the shelter
+                  </a>
+                </li>
+
+                <li class="nav__item">
+                  <a class="nav__link nav__link--dark" href="#footer">
+                    Contacts
+                  </a>
+                </li>
+              </ul>
+            </nav>
+
+            <!-- Hamburger menu -->
+            <div class="burger header__burger header__burger--fixed">
+              <div class="burger__line burger__line--dark"></div>
+              <div class="burger__line burger__line--dark"></div>
+              <div class="burger__line burger__line--dark"></div>
+            </div>
+          </div>
+        </header>
+      </div>
+
+      <!-- Main -->
+      <main class="main">
+        <!-- Pets section -->
+        <div class="main__wrapper main__wrapper--dark">
+          <section class="section section--dark section--pets">
+            <div class="section--pets__container">
+              <!-- Title -->
+              <h3 class="heading heading--h3 section--pets__heading">
+                Our friends who <br />
+                are looking for a house
+              </h3>
+
+              <!-- Card gallery -->
+              <div class="gallery section--pets__gallery">
+              </div>
+
+              <!-- Pagination -->
+              <div class="pagination">
+                <!-- double backward -->
+                <button
+                  class="button button--round button--disabled pagination__button pagination__button--double-backward"
+                >
+                  &lt;&lt;
+                </button>
+
+                <!-- backward -->
+                <button
+                  class="button button--round button--disabled pagination__button pagination__button--backward"
+                >
+                  &lt;
+                </button>
+
+                <!-- count -->
+                <button
+                  class="button button--round button--active pagination__button pagination__button--count"
+                >
+                  1
+                </button>
+
+                <!-- forward -->
+                <button
+                  class="button button--round pagination__button pagination__button--forward"
+                >
+                  &gt;
+                </button>
+                <!-- double forward -->
+                <button
+                  class="button button--round pagination__button pagination__button--double-forward"
+                >
+                  &gt;&gt;
+                </button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer" id="footer">
+        <div class="footer__container">
+          <!-- Contacts -->
+          <div class="data-block data-block--contacts">
+            <!-- Title -->
+            <h3 class="heading heading--h3 data-block__heading">
+              For questions and suggestions
+            </h3>
+
+            <!-- Mail -->
+            <a
+              class="data-block__box data-block__box--mail"
+              href="mailto:email@shelter.com"
+            >
+              <!-- Icon -->
+              <div class="data-block__icon data-block__icon--mail"></div>
+
+              <!-- Text -->
+              <p class="data-block__text">email@shelter.com</p>
+            </a>
+
+            <!-- Phone -->
+            <a
+              class="data-block__box data-block__box--phone"
+              href="tel:+136745677554"
+            >
+              <!-- Icon -->
+              <div class="data-block__icon data-block__icon--phone"></div>
+
+              <!-- Text -->
+              <p class="data-block__text">+13 674 567 75 54</p>
+            </a>
+          </div>
+
+          <!-- Locations -->
+          <div class="data-block data-block--locations">
+            <!-- Title -->
+            <h3 class="heading heading--h3 data-block__heading">
+              We are waiting for your visit
+            </h3>
+
+            <!-- Adress 1 -->
+            <a
+              class="data-block__box data-block__box--address"
+              href="https://goo.gl/maps/X3gwqRryNBSUMr1i6"
+              target="_blank"
+            >
+              <!-- Icon -->
+              <div class="data-block__icon data-block__icon--marker"></div>
+
+              <!-- Text -->
+              <p class="data-block__text">
+                1 Central Street, Boston (entrance from the store)
+              </p>
+            </a>
+
+            <!-- Adress 2 -->
+            <a
+              class="data-block__box data-block__box--address"
+              href="https://goo.gl/maps/mJedVkzUMWL2e5yT8"
+              target="_blank"
+            >
+              <!-- Icon -->
+              <div
+                class="data-block__icon data-block__icon--marker data-block__icon--marker--2"
+              ></div>
+
+              <!-- Text -->
+              <p class="data-block__text">18 South Park, London</p>
+            </a>
+          </div>
+
+          <!-- Puppy image -->
+          <img
+            class="footer__img"
+            src="../../assets/images/main/footer-puppy.png"
+            alt="Cheerful puppy"
+          />
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
