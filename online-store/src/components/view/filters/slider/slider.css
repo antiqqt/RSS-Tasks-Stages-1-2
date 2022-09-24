@@ -1,0 +1,43 @@
+.noUi-connect {
+    background: rgb(96 165 250); /* tailwind-blue-400 */
+}
+
+.noUi-handle {
+    height: 1rem !important;
+    width: 1rem !important;
+    top: -0.3rem !important;
+    right: -0.5rem !important;
+
+    background: white;
+    border: 1px solid #d1d5db; /* tailwind-gray-200 */
+    border-radius: 9px;
+    box-shadow: none;
+}
+
+.noUi-handle::before,
+.noUi-handle::after {
+    display: none;
+}
+
+.noUi-touch-area {
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    transform: translate(-20%, -20%);
+    cursor: pointer;
+}
+
+.noUi-horizontal .noUi-tooltip {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 3rem;
+    padding: 0;
+    color: #9ca3af;
+    font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    transform: translate(-50%, 190%);
+    cursor: pointer;
+    transiton: 0.5s;
+}

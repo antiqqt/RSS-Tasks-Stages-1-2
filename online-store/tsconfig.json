@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "module": "es6",
+        "target": "es2016",
+        "outDir": "./dist",
+        "allowJs": true,
+        "strict": true,
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true
+    },
+    "include": ["./src/**/*", "./jest-setup.ts"],
+    "exclude": ["./dist"]
+}
